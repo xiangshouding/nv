@@ -50,12 +50,17 @@
 #import "ETClipView.h"
 #import "ETScrollView.h"
 #import "NSFileManager+DirectoryLocations.h"
+#import <Sparkle/SUUpdater.h>
 
 #define NSApplicationPresentationAutoHideMenuBar (1 <<  2)
 #define NSApplicationPresentationHideMenuBar (1 <<  3)
 //#define NSApplicationPresentationAutoHideDock (1 <<  0)
 #define NSApplicationPresentationHideDock (1 <<  1)
 //#define NSApplicationActivationPolicyAccessory
+
+#define kSparkleUpdateFeedForLions @"http://abyss.designheresy.com/nvalt2/nvalt2main.xml"
+#define kSparkleUpdateFeedForSnowLeopard @"http://abyss.designheresy.com/nvalt2/nvalt2snowleopardfeed.xml"
+//http://abyss.designheresy.com/nvalt/betaupdates.xml
 
 //#define NSTextViewChangedNotification @"TextView has changed contents"
 //#define kDefaultMarkupPreviewMode @"markupPreviewMode"
@@ -326,7 +331,12 @@ void outletObjectAwoke(id sender) {
 	if (!NSClassFromString(@"SUUpdater")) {
 		NSString *frameworkPath = [[[NSBundle bundleForClass:[self class]] privateFrameworksPath] stringByAppendingPathComponent:@"Sparkle.framework"];
 		if ([[NSBundle bundleWithPath:frameworkPath] load]) {
-			id updater = [NSClassFromString(@"SUUpdater") performSelector:@selector(sharedUpdater)];
+			SUUpdater *updater =[NSClassFromString(@"SUUpdater") performSelector:@selector(sharedUpdater)];
+            if (IsLionOrLater) {
+                [updater setFeedURL:[NSURL URLWithString:kSparkleUpdateFeedForLions]];
+            }else{
+                [updater setFeedURL:[NSURL URLWithString:kSparkleUpdateFeedForSnowLeopard]];
+            }
 			[sparkleUpdateItem setTarget:updater];
 			[sparkleUpdateItem setAction:@selector(checkForUpdates:)];
 			NSMenuItem *siSparkle = [statBarMenu itemWithTag:902];
@@ -334,8 +344,9 @@ void outletObjectAwoke(id sender) {
 			[siSparkle setAction:@selector(checkForUpdates:)];
 			if (![[prefsController notationPrefs] firstTimeUsed]) {
 				//don't do anything automatically on the first launch; afterwards, check every 4 days, as specified in Info.plist
-				SEL checksSEL = @selector(setAutomaticallyChecksForUpdates:);
-				[updater methodForSelector:checksSEL](updater, checksSEL, YES);
+                //				SEL checksSEL = @selector(setAutomaticallyChecksForUpdates:);
+                [updater setAutomaticallyChecksForUpdates:YES];
+                //				[updater methodForSelector:checksSEL](updater, checksSEL, YES);
 			}
 		} else {
 			NSLog(@"Could not load %@!", frameworkPath);
