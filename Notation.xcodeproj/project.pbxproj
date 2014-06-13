@@ -1460,7 +1460,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = elasticthreads;
 			};
 			buildConfigurationList = 212B842709780B5000F3597F /* Build configuration list for PBXProject "Notation" */;
@@ -2214,14 +2214,13 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Development;
 		};
 		212B842809780B5000F3597F /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2245,7 +2244,7 @@
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -2278,7 +2277,7 @@
 				IBC_STRIP_NIBS = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-pg",
@@ -2287,7 +2286,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = nvALT;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VERSION_INFO_BUILDER = ElasticThreads;
 				WARNING_LDFLAGS = "-pg";
@@ -2299,7 +2298,6 @@
 		5C9CB58B134A7F0400073277 /* ForBuilding */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2321,7 +2319,7 @@
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_GLOBAL_CONSTRUCTORS = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -2350,10 +2348,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ICU/icu;
 				INFOPLIST_FILE = Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = nvALT;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = (
 					"-sectorder",
 					__TEXT,
@@ -2373,7 +2371,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = ForBuilding;
 		};

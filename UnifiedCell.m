@@ -26,15 +26,16 @@
 @implementation UnifiedCell
 
 - (id)init {
-	if ([super init]) {
+	if (self=[super init]) {
 
 		//should be handled by NSParagraphStyle in our string, as it is more complex than this
 //		[self setLineBreakMode:NSLineBreakByTruncatingTail];
 		if (IsLeopardOrLater)
 			[self setTruncatesLastVisibleLine:YES];
 		[self setEditable:YES];
+        return self;
 	}
-	return self;
+	return nil;
 }
 
 - (void)dealloc {

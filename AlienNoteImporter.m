@@ -45,11 +45,12 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 @implementation AlienNoteImporter
 
 - (id)init {
-	if ([super init]) {
+	if (self=[super init]) {
 		shouldGrabCreationDates = NO;
 		documentSettings = [[NSMutableDictionary alloc] init];
+        return self;
 	}
-	return self;
+	return nil;
 }
 
 + (void)importBlorOrHelpFilesIfNecessaryIntoNotation:(NotationController*)notation {
@@ -95,20 +96,21 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 }
 
 - (id)initWithStoragePaths:(NSArray*)filenames {
-	if ([self init]) {
+	if (self=[self init]) {
 		if ((source = [filenames retain])) {
 		
 			importerSelector = @selector(notesWithPaths:);
 		} else {
 			return nil;
 		}
+        return self;
 	}
 	
-	return self;
+	return nil;
 }
 
 - (id)initWithStoragePath:(NSString*)filename {
-	if ([self init]) {
+	if (self=[self init]) {
 		if ((source = [filename retain])) {
 			
 			//auto-detect based on bundle/extension/metadata
@@ -124,9 +126,10 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 		} else {
 			return nil;
 		}
+        return self;
 	}
 	
-	return self;
+	return nil;
 }
 
 - (void)dealloc {
@@ -521,9 +524,9 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
     data = [file readDataToEndOfFile];
 	
     NSString *string;
-    string = [[NSString alloc] initWithData: data
-								   encoding: NSUTF8StringEncoding];
-
+    string = [[[NSString alloc] initWithData: data
+								   encoding: NSUTF8StringEncoding] autorelease];
+    [task release];
 	return [self markdownFromSource:string];
 }
 
@@ -553,9 +556,9 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
     data = [file readDataToEndOfFile];
 	
     NSString *string;
-    string = [[NSString alloc] initWithData: data
-								   encoding: NSUTF8StringEncoding];
-	
+    string = [[[NSString alloc] initWithData: data
+								   encoding: NSUTF8StringEncoding] autorelease];
+	[task release];
 	return string;
 }
 

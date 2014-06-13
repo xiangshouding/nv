@@ -32,18 +32,19 @@
 //instances this short-lived class are intended to be started only once, and then deallocated
 
 - (id)initWithEntriesToCollect:(NSArray*)wantedEntries simperiumToken:(NSString*)aSimperiumToken {
-	if ([super init]) {
+	if (self=[super init]) {
 		simperiumToken = [aSimperiumToken retain];
 		entriesToCollect = [wantedEntries retain];
 		entriesCollected = [[NSMutableArray alloc] init];
 		entriesInError = [[NSMutableArray alloc] init];
 		
 		if (![simperiumToken length] || ![entriesToCollect count]) {
-			NSLog(@"%s: missing parameters", _cmd);
+			NSLog(@"%@: missing parameters", NSStringFromSelector(_cmd));
 			return nil;
 		}
+        return self;
 	}
-	return self;
+	return nil;
 }
 
 - (NSArray*)entriesToCollect {
@@ -184,7 +185,7 @@
 - (void)syncResponseFetcher:(SyncResponseFetcher*)fetcher receivedData:(NSData*)data returningError:(NSString*)errString {
 	
 	if (errString) {
-		NSLog(@"%s: collector-%@ returned %@", _cmd, fetcher, errString);
+		NSLog(@"%@: collector-%@ returned %@", NSStringFromSelector(_cmd), fetcher, errString);
 		id obj = [fetcher representedObject];
 		if (obj) {
 			[entriesInError addObject:[NSDictionary dictionaryWithObjectsAndKeys: obj, @"NoteObject", 
@@ -234,17 +235,18 @@
 //and to ensure we know what the time was for the next time we compare dates
 
 - (id)initWithEntries:(NSArray*)wantedEntries operation:(SEL)opSEL simperiumToken:(NSString *)aSimperiumToken {
-	if ([super initWithEntriesToCollect:wantedEntries simperiumToken:aSimperiumToken]) {
+	if (self=[super initWithEntriesToCollect:wantedEntries simperiumToken:aSimperiumToken]) {
 		//set creation and modification date when creating
 		//set modification date when updating
 		//need to check for success when deleting
 		if (![self respondsToSelector:opSEL]) {
-			NSLog(@"%@ doesn't respond to %s", self, opSEL);
+			NSLog(@"%@ doesn't respond to %@", self, NSStringFromSelector(opSEL));
 			return nil;
 		}
 		fetcherOpSEL = opSEL;
+        return self;
 	}
-	return self;
+	return nil;
 }
 
 - (SyncResponseFetcher*)fetcherForEntry:(id)anEntry {
@@ -294,7 +296,7 @@
 	} else {
 		NSUInteger v = [[info objectForKey:@"version"] integerValue];
 		if (v > 0) {
-			noteURL = [SimplenoteSession simperiumURLWithPath:[NSString stringWithFormat:@"/Note/i/%@/v/%u", [info objectForKey:@"key"], v] parameters:params];
+			noteURL = [SimplenoteSession simperiumURLWithPath:[NSString stringWithFormat:@"/Note/i/%@/v/%lu", [info objectForKey:@"key"], (unsigned long)v] parameters:params];
 		} else {
 			noteURL = [SimplenoteSession simperiumURLWithPath:[NSString stringWithFormat:@"/Note/i/%@", [info objectForKey:@"key"]] parameters:params];
 		}
@@ -467,11 +469,11 @@
 				[[[(NoteObject *)aNote delegate] delegate] contentsUpdatedForNote:aNote];
 			}
 		} else {
-			NSLog(@"%s called with unknown opSEL: %s", _cmd, fetcherOpSEL);
+			NSLog(@"%@ called with unknown opSEL: %@", NSStringFromSelector(_cmd),NSStringFromSelector(fetcherOpSEL));
 		}
 		
 	} else {
-		NSLog(@"Hmmm. Fetcher %@ doesn't have a represented object. op = %s", fetcher, fetcherOpSEL);
+		NSLog(@"Hmmm. Fetcher %@ doesn't have a represented object. op = %@", fetcher, NSStringFromSelector(fetcherOpSEL));
 	}
 	[result setObject:keyString forKey:@"key"];
 	

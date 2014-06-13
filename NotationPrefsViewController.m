@@ -55,7 +55,7 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 }
 
 - (id)init {
-    if ([super init]) {
+    if (self=[super init]) {
 		didAwakeFromNib = NO;
 		notationPrefs = [[[GlobalPrefs defaultPrefs] notationPrefs] retain];
 		
@@ -63,8 +63,10 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 		enableEncryptionString = NSLocalizedString(@"Turn On Note Encryption...",nil);
 	
 		[[GlobalPrefs defaultPrefs] registerForSettingChange:@selector(setNotationPrefs:sender:) withTarget:self];
+    
+        return self;
     }
-    return self;
+	return nil;
 }
 - (void)dealloc {
 	[picker release];

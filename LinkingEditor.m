@@ -603,7 +603,7 @@ copyRTFType:
 //use with rangesOfWordsInString:(NSString*)findString earliestRange:(NSRange*)aRange inRange:
 - (void)highlightRangesTemporarily:(CFArrayRef)ranges {
 	CFIndex rangeIndex;
-	NSUInteger bodyLength = [[self string] length];
+	long bodyLength = (long)[[self string] length];
 	NSDictionary *highlightDict = [prefsController searchTermHighlightAttributes];
 	
 	for (rangeIndex = 0; rangeIndex < CFArrayGetCount(ranges); rangeIndex++) {

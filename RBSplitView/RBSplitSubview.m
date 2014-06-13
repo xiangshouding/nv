@@ -481,6 +481,7 @@ static animationData* currentAnimation = NULL;
 // This method handles clicking and dragging in an empty portion of the subview, or in an alternate
 // drag view as designated by the delegate.
 - (void)mouseDown:(NSEvent*)theEvent {
+    if ([theEvent clickCount]<2) {
 	NSWindow* window = [self window];
 	NSPoint where = [theEvent locationInWindow];
 	if (actDivider<NSNotFound) {
@@ -537,8 +538,10 @@ static animationData* currentAnimation = NULL;
 			[window setFrameOrigin:origin];
 			where = now;
 			[pool drain];
+            }
 		}
-	}
+	} 
+    [super mouseDown:theEvent];
 }
 
 // These two methods encode and decode subviews.
@@ -832,13 +835,16 @@ static animationData* currentAnimation = NULL;
 // there is one, and calling the delegate method if there is one.
 - (void)RB___finishCollapse:(NSRect)rect withFraction:(double)value {
 	RBSplitView* sv = [self splitView];
+	id delegate = [sv delegate];
+	if ([delegate respondsToSelector:@selector(splitView:willCollapse:)]) {
+		[delegate splitView:sv willCollapse:self];
+	}
 	BOOL finish = [self RB___stopAnimation];
 	[self RB___setFrame:rect withFraction:value notify:YES];
 	[sv RB___setMustClearFractions];
 	if (finish) {
 		[self display];
 	}
-	id delegate = [sv delegate];
 	if ([delegate respondsToSelector:@selector(splitView:didCollapse:)]) {
 		[delegate splitView:sv didCollapse:self];
 	}
@@ -871,13 +877,16 @@ static animationData* currentAnimation = NULL;
 // there is one, and calling the delegate method if there is one.
 - (void)RB___finishExpand:(NSRect)rect withFraction:(double)value {
 	RBSplitView* sv = [self splitView];
+    id delegate = [sv delegate];
+	if ([delegate respondsToSelector:@selector(splitView:willExpand:)]) {
+		[delegate splitView:sv willExpand:self];
+	}
 	BOOL finish = [self RB___stopAnimation];
 	[self RB___setFrame:rect withFraction:value notify:YES];
 	[sv RB___setMustClearFractions];
 	if (finish) {
 		[self display];
 	}
-	id delegate = [sv delegate];
 	if ([delegate respondsToSelector:@selector(splitView:didExpand:)]) {
 		[delegate splitView:sv didExpand:self];
 	}

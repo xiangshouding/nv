@@ -19,7 +19,7 @@
 	if (!aUrl || [aUrl isFileURL]) {
 		return nil;
 	}
-	if ([super init]) {
+	if (self=[super init]) {
 		maxExpectedByteCount = 0;
 		isImporting = isIndicating = NO;
 		delegate = aDelegate;
@@ -29,9 +29,10 @@
 		downloader = [[NSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:url] delegate:self];
 		
 		[self startProgressIndication:self];
+        return self;
 	}
 	
-	return self;
+	return nil;
 }
 
 - (void)dealloc {

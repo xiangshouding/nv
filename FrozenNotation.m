@@ -51,7 +51,7 @@
 
 - (id)initWithNotes:(NSMutableArray*)notes deletedNotes:(NSMutableSet*)antiNotes prefs:(NotationPrefs*)somePrefs {
 	
-	if ([super init]) {
+	if (self=[super init]) {
 
 		notesData = [[NSMutableData alloc] init];
 		NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:notesData];
@@ -80,12 +80,12 @@
 		}
 		
 		if (![notesData length]) {
-			NSLog(@"%s: empty notesData; returning nil", _cmd);
+			NSLog(@"%@: empty notesData; returning nil", NSStringFromSelector(_cmd));
 			return nil;
 		}
+        return self;
 	}
-	
-	return self;
+	return nil;
 }
 
 - (void)dealloc {

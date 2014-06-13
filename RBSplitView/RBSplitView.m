@@ -582,7 +582,6 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
 // "closed hand" cursor is shown. Double clicks are handled separately. Nothing will happen if
 // no divider image is set.
 - (void)mouseDown:(NSEvent*)theEvent {
-    
 	if (!dividers) {
 		return;
 	}
@@ -816,11 +815,14 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
 - (void)drawDivider:(NSImage*)anImage inRect:(NSRect)rect betweenView:(RBSplitSubview*)leading andView:(RBSplitSubview*)trailing {
     // Fill the view with the background color (if there's any). Don't draw the background again for
     // thumbs.
-	if ((rect.origin.x==0)&&(rect.origin.y==0)) {
-		[self setDividerThickness:7.0];
-	}else {
-		[self setDividerThickness:8.75f];// [self isVertical] ? 9.0f : 9.0f];		
-	}
+    
+    //HERE
+//     NSLog(@"divThikc :>%f<",[self dividerThickness]);
+//	if ((rect.origin.x==0)&&(rect.origin.y==0)) {
+//		[self setDividerThickness:7.0];
+//	}else {
+//		[self setDividerThickness:8.75f];// [self isVertical] ? 9.0f : 9.0f];		
+//	}
 	if (leading||trailing) {
 		NSColor* bg = [self background];
 		if (bg) {

@@ -76,7 +76,6 @@ static NSString	*ShowDockIcon = @"ShowDockIcon";
 static NSString	*KeepsMaxTextWidth = @"KeepsMaxTextWidth";
 static NSString	*NoteBodyMaxWidth = @"NoteBodyMaxWidth";
 static NSString	*ColorScheme = @"ColorScheme";
-static NSString	*TextEditor = @"TextEditor";
 static NSString *UseMarkdownImportKey = @"UseMarkdownImport";
 static NSString *UseReadabilityKey = @"UseReadability";
 static NSString *ShowGridKey = @"ShowGrid";
@@ -114,7 +113,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 }
 
 - (id)init {
-	if ([super init]) {
+	if (self=[super init]) {
 	
 		runCallbacksIMP = [self methodForSelector:@selector(notifyCallbacksForSelector:excludingSender:)];
 		selectorObservers = [[NSMutableDictionary alloc] init];
@@ -214,7 +213,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 		va_end(argList);
 		
 	} else {
-		NSLog(@"%s: target %@ does not respond to callback selector!", _cmd, [sender description]);
+		NSLog(@"%@: target %@ does not respond to callback selector!", NSStringFromSelector(_cmd), [sender description]);
 	}
 }
 
@@ -549,7 +548,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 }
 
 - (int)numberOfSpacesInTab {
-	return [defaults integerForKey:NumberOfSpacesInTabKey];
+	return (int)[defaults integerForKey:NumberOfSpacesInTabKey];
 }
 
 BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {

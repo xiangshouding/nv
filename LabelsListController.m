@@ -32,7 +32,7 @@
 @implementation LabelsListController
 
 - (id)init {
-	if ([super init]) {
+	if (self=[super init]) {
 	    
 	    allLabels = [[NSCountedSet alloc] init]; //authoritative
 	    //for faster(?) filtering during search
@@ -163,6 +163,9 @@ static CGRect NSRectToCGRect(NSRect nsrect) {
 //figure out which notes to display given some selected labels
 - (NSSet*)notesAtFilteredIndexes:(NSIndexSet*)anIndexSet {
     NSUInteger i, numLabels = [anIndexSet count];
+    if (numLabels==0) {
+        return [NSSet set];
+    }
     NSUInteger *labelsBuffer = malloc(numLabels * sizeof(NSUInteger));
     
     NSRange range = NSMakeRange([anIndexSet firstIndex], ([anIndexSet lastIndex]-[anIndexSet firstIndex]) + 1);
@@ -174,7 +177,7 @@ static CGRect NSRectToCGRect(NSRect nsrect) {
 	NSUInteger labelIndex = labelsBuffer[i];
 	[notesOfLabels unionSet:[objects[labelIndex] noteSet]];
     }
-    
+    free(labelsBuffer);
     return [notesOfLabels autorelease];
 }
 

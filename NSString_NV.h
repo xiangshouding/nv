@@ -30,7 +30,7 @@ CFDateFormatterRef simplenoteDateFormatter(int lowPrecision);
 - (CFArrayRef)copyRangesOfWordsInString:(NSString*)findString inRange:(NSRange)limitRange;
 + (NSString*)customPasteboardTypeOfCode:(int)code;
 - (NSString*)stringAsSafePathExtension;
-- (NSString*)filenameExpectingAdditionalCharCount:(int)charCount;
+- (NSString*)filenameExpectingAdditionalCharCount:(NSUInteger)charCount;
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 - (NSString*)stringByReplacingOccurrencesOfString:(NSString*)stringToReplace withString:(NSString*)replacementString;
 #endif

@@ -58,12 +58,12 @@
 	BOOL wasVert;
     BOOL wasDFVisible;
     BOOL fieldWasFirstResponder;
-  BOOL isAutocompleting;
-  BOOL wasDeleting;
-  IBOutlet ETContentView *mainView;
+    BOOL isAutocompleting;
+    BOOL wasDeleting;
+    IBOutlet ETContentView *mainView;
 	DFView *dualFieldView;
 	StatusItemView *cView;
-  NSStatusItem *statusItem;
+    NSStatusItem *statusItem;
 	IBOutlet NSMenu *statBarMenu;
 	TagEditingManager *tagEditor;
 	NSColor *backgrndColor;
@@ -71,20 +71,20 @@
 	NSInteger userScheme;
 	NSString *noteFormat;
 	NSTextView *theFieldEditor;
-  NSDictionary *fieldAttributes;
+    NSDictionary *fieldAttributes;
 	NSTimer *modifierTimer;
 	IBOutlet WordCountToken *wordCounter;
-  IBOutlet DualField *field;
+    IBOutlet DualField *field;
 	RBSplitSubview *splitSubview;
 	RBSplitSubview *notesSubview;
 	RBSplitView *splitView;
-  IBOutlet ETScrollView *notesScrollView;
-  IBOutlet ETScrollView *textScrollView;
-  IBOutlet NotesTableView *notesTableView;
-  IBOutlet LinkingEditor *textView;
+    IBOutlet ETScrollView *notesScrollView;
+    IBOutlet ETScrollView *textScrollView;
+    IBOutlet NotesTableView *notesTableView;
+    IBOutlet LinkingEditor *textView;
 	IBOutlet EmptyView *editorStatusView;
 	IBOutlet NSMenuItem *sparkleUpdateItem;
-  IBOutlet NSWindow *window;
+    IBOutlet NSWindow *window;
 	IBOutlet NSPanel *syncWaitPanel;
 	IBOutlet NSProgressIndicator *syncWaitSpinner;
 	NSToolbar *toolbar;
@@ -93,16 +93,16 @@
 	
 	BOOL waitedForUncommittedChanges;
 	
-	NSImage *verticalDividerImg;
+    //	NSImage *verticalDividerImg;
 	LinearDividerShader *dividerShader;
 	
 	NSString *URLToInterpretOnLaunch;
 	NSMutableArray *pathsToOpenOnLaunch;
 	
-  NSUndoManager *windowUndoManager;
-  PrefsWindowController *prefsWindowController;
-  GlobalPrefs *prefsController;
-  NotationController *notationController;
+    NSUndoManager *windowUndoManager;
+    PrefsWindowController *prefsWindowController;
+    GlobalPrefs *prefsController;
+    NotationController *notationController;
 	
 	SpaceSwitchingContext spaceSwitchCtx;
 	ViewLocationContext listUpdateViewCtx;
@@ -114,15 +114,16 @@
 	NoteObject *currentNote;
 	NSArray *savedSelectedNotes;
 	BOOL hasLaunched;
-  PreviewController *previewController;
-  // IBOutlet NSMenuItem *markdownPreview;
-  IBOutlet NSMenuItem *multiMarkdownPreview;
-  IBOutlet NSMenuItem *textilePreview;
-  IBOutlet NSMenuItem *previewToggler;
-  IBOutlet NSMenuItem *lockNoteItem;
-  IBOutlet NSMenuItem *printPreviewItem;
-  IBOutlet NSMenuItem *savePreviewItem;
-  NSInteger currentPreviewMode;
+    PreviewController *previewController;
+    // IBOutlet NSMenuItem *markdownPreview;
+    IBOutlet NSMenuItem *multiMarkdownPreview;
+    IBOutlet NSMenuItem *textilePreview;
+    IBOutlet NSMenuItem *previewToggler;
+    IBOutlet NSMenuItem *lockNoteItem;
+    IBOutlet NSMenuItem *printPreviewItem;
+    IBOutlet NSMenuItem *savePreviewItem;
+    NSInteger currentPreviewMode;
+    BOOL splitViewIsChangingLayout;
 }
 
 @property(readwrite)BOOL isEditing;
@@ -151,7 +152,7 @@ void outletObjectAwoke(id sender);
 - (NoteObject*)createNoteIfNecessary;
 - (void)searchForString:(NSString*)string;
 - (NSUInteger)revealNote:(NoteObject*)note options:(NSUInteger)opts;
-- (BOOL)displayContentsForNoteAtIndex:(int)noteIndex;
+- (BOOL)displayContentsForNoteAtIndex:(NSUInteger)noteIndex;
 - (void)processChangedSelectionForTable:(NSTableView*)table;
 - (void)setEmptyViewState:(BOOL)state;
 - (void)cancelOperation:(id)sender;

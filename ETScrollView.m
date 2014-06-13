@@ -6,13 +6,16 @@
 //
 
 #import "ETScrollView.h"
-#import "ETTransparentScroller.h"
 #import "ETOverlayScroller.h"
 #import "GlobalPrefs.h"
 #import "LinkingEditor.h"
 
 @implementation ETScrollView
 
+
++ (BOOL)isCompatibleWithResponsiveScrolling{
+    return NO;
+}
 
 - (NSView *)hitTest:(NSPoint)aPoint{
     if([[[self documentView]className] isEqualToString:@"LinkingEditor"]){
@@ -43,7 +46,6 @@
 
 - (void)awakeFromNib{ 
     needsOverlayTiling=NO;
-    BOOL fillIt=NO;
     if([[[self documentView]className] isEqualToString:@"NotesTableView"]){
         scrollerClass=NSClassFromString(@"ETOverlayScroller");
         if (!IsLionOrLater) {
@@ -51,25 +53,16 @@
             needsOverlayTiling=YES;
         }
     }else{
-        scrollerClass=NSClassFromString(@"ETTransparentScroller");   
-        if (!IsLionOrLater) {
-            fillIt=YES;            
-        }
+        scrollerClass=NSClassFromString(@"ETTransparentScroller");
     }
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
     if (IsLionOrLater) {
         [[GlobalPrefs defaultPrefs] registerForSettingChange:@selector(setUseETScrollbarsOnLion:sender:) withTarget:self];
         [self setHorizontalScrollElasticity:NSScrollElasticityNone];
         [self setVerticalScrollElasticity:NSScrollElasticityAllowed];
-//        [self setScrollerStyle:NSScrollerStyleOverlay];   
     }
-#endif    
-    if (!IsLionOrLater||([[GlobalPrefs defaultPrefs]useETScrollbarsOnLion])) {
-         id theScroller=[[scrollerClass alloc]init];
-        [theScroller setFillBackground:fillIt];
-        [self setVerticalScroller:theScroller];
-        [theScroller release];
-    }
+#endif
+        [self changeUseETScrollbarsOnLion];
 }
 
 
@@ -81,22 +74,29 @@
 }
 
 - (void)changeUseETScrollbarsOnLion{
-    NSScrollerStyle style=[self scrollerStyle];
     id theScroller;
-    if ([[GlobalPrefs defaultPrefs]useETScrollbarsOnLion]) {
-        theScroller=[[scrollerClass alloc]init];
+    if (!IsLionOrLater||[[GlobalPrefs defaultPrefs]useETScrollbarsOnLion]) {
+        theScroller=[[scrollerClass alloc]init];        
+        [theScroller setFillBackground:!IsLionOrLater&&(scrollerClass==NSClassFromString(@"ETTransparentScroller"))];
     }else{
         theScroller=[[NSScroller alloc]init];
-        if (style==NSScrollerStyleLegacy) {
-            style=[NSScroller preferredScrollerStyle];
-        }
     }
-    [theScroller setScrollerStyle:style];
+    NSScrollerStyle style=0;
+    if (IsLionOrLater) {
+        style=[[theScroller class] preferredScrollerStyle];
+    }
     [self setVerticalScroller:theScroller];
     [theScroller release];
-    [self setScrollerStyle:style];
+    
+    if (IsLionOrLater) {
+        [theScroller setScrollerStyle:style];
+        [self setScrollerStyle:style];
+    }
     [self tile];
     [self reflectScrolledClipView:[self contentView]];
+//    if (IsLionOrLater) {
+//        [self flashScrollers];
+//    }
 }
 #endif
 

@@ -50,7 +50,7 @@
 	NSString* errorString = nil;
 	id outObject = [NSPropertyListSerialization propertyListFromData:nsData mutabilityOption:kCFPropertyListImmutable format:&formatFound errorDescription:&errorString];
 	if (errorString) {
-		NSLog(@"%s: error deserializing labels: %@", _cmd, errorString);
+		NSLog(@"%@: error deserializing labels: %@", NSStringFromSelector(_cmd), errorString);
 		[errorString autorelease];
 		return nil;
 	}
@@ -75,7 +75,7 @@
 		NSString *errorString = nil;
 		dataToSendNS = [NSPropertyListSerialization dataFromPropertyList:plistObject format:kCFPropertyListBinaryFormat_v1_0 errorDescription:&errorString];
 		if (errorString) {
-			NSLog(@"%s: error serializing labels: %@", _cmd, errorString);
+			NSLog(@"%@: error serializing labels: %@", NSStringFromSelector(_cmd), errorString);
 			[errorString autorelease];
 			return NO;
 		}
@@ -91,7 +91,7 @@
 	}
 	
 	if (returnVal < 0) {
-		if (errno != ENOATTR) NSLog(@"%s: couldn't set/remove attribute: %d (value '%@')", _cmd, errno, dataToSendNS);
+		if (errno != ENOATTR) NSLog(@"%@: couldn't set/remove attribute: %d (value '%@')", NSStringFromSelector(_cmd), errno, dataToSendNS);
 		return NO;
 	}
 
@@ -106,7 +106,7 @@
 	
 	CFStringEncoding cfStringEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
 	if (cfStringEncoding == kCFStringEncodingInvalidId) {
-		NSLog(@"%s: encoding %lu is invalid!", _cmd, encoding);
+		NSLog(@"%@: encoding %lu is invalid!", NSStringFromSelector(_cmd), encoding);
 		return NO;
 	}
 	NSString *textEncStr = [(NSString *)CFStringConvertEncodingToIANACharSetName(cfStringEncoding) stringByAppendingFormat:@";%@", 

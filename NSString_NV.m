@@ -80,7 +80,9 @@ static int dayFromAbsoluteTime(CFAbsoluteTime absTime) {
     static NSString *days[3] = { NULL };
     
     if (!timeOnlyFormatter) {
-		timeOnlyFormatter = CFDateFormatterCreate(kCFAllocatorDefault, CFLocaleCopyCurrent(), kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
+        CFLocaleRef localeRef2 = CFLocaleCopyCurrent();
+		timeOnlyFormatter = CFDateFormatterCreate(kCFAllocatorDefault, localeRef2, kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
+        CFRelease(localeRef2);
     }
     
     if (!days[ThisDay]) {
@@ -90,11 +92,12 @@ static int dayFromAbsoluteTime(CFAbsoluteTime absTime) {
     }
 
     CFStringRef dateString = CFDateFormatterCreateStringWithDate(kCFAllocatorDefault, timeOnlyFormatter, date);
-	
 	if ([[GlobalPrefs defaultPrefs] horizontalLayout]) {
 		//if today, return the time only; otherwise say "Yesterday", etc.; and this method shouldn't be called unless day != NoSpecialDay
-		if (day == PriorDay || day == NextDay)
-			return days[day];
+		if (day == PriorDay || day == NextDay){
+		CFRelease(dateString);
+            return days[day];
+        }
 		return [(id)dateString autorelease];
 	}
     
@@ -122,10 +125,12 @@ static int dayFromAbsoluteTime(CFAbsoluteTime absTime) {
 		int day = dayFromAbsoluteTime(absTime);
 		
 		if (!dateAndTimeFormatter) {
+            CFLocaleRef localeRef2 = CFLocaleCopyCurrent();
 			BOOL horiz = [[GlobalPrefs defaultPrefs] horizontalLayout];
-			dateAndTimeFormatter = CFDateFormatterCreate(kCFAllocatorDefault, CFLocaleCopyCurrent(), 
+			dateAndTimeFormatter = CFDateFormatterCreate(kCFAllocatorDefault, localeRef2,
 														 horiz ? kCFDateFormatterShortStyle : kCFDateFormatterMediumStyle, 
 														 horiz ? kCFDateFormatterNoStyle : kCFDateFormatterShortStyle);
+            CFRelease(localeRef2);
 		}
 		
 		CFDateRef date = CFDateCreate(kCFAllocatorDefault, absTime);
@@ -135,7 +140,7 @@ static int dayFromAbsoluteTime(CFAbsoluteTime absTime) {
 		} else {
 			dateString = [NSString relativeTimeStringWithDate:date relativeDay:day];
 		}
-		
+        
 		CFRelease(date);
 		
 		//ints as pointers ints as pointers ints as pointers
@@ -252,7 +257,7 @@ CFDateFormatterRef simplenoteDateFormatter(int lowPrecision) {
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"./*: \t\n\r"]];
 }
 
-- (NSString*)filenameExpectingAdditionalCharCount:(int)charCount {
+- (NSString*)filenameExpectingAdditionalCharCount:(NSUInteger)charCount {
 	NSString *newfilename = self;
 	if ([self length] + charCount > 255)
 		newfilename = [self substringToIndex: 255 - charCount];
@@ -314,7 +319,7 @@ CFDateFormatterRef simplenoteDateFormatter(int lowPrecision) {
 	//find the first line, whitespace or no whitespace
 	
 	NSCharacterSet *titleDelimiters = [NSCharacterSet characterSetWithCharactersInString:
-											  [NSString stringWithFormat:@"\n\r\t%C%C", NSLineSeparatorCharacter, NSParagraphSeparatorCharacter]];
+											  [NSString stringWithFormat:@"\n\r\t%C%C",(unichar) NSLineSeparatorCharacter, (unichar)NSParagraphSeparatorCharacter]];
 	
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	[scanner setCharactersToBeSkipped:[[[NSMutableCharacterSet alloc] init] autorelease]];
@@ -679,7 +684,7 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
 			nextRange = NSMakeRange(rangeLoc, [self length] - rangeLoc);
 		}
 	} @catch (NSException *e) {
-		NSLog(@"%s got an exception: %@", _cmd, [e reason]);
+		NSLog(@"%@ got an exception: %@", NSStringFromSelector(_cmd), [e reason]);
 	}
 }
 
@@ -716,7 +721,7 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
 		NSStringEncoding extendedAttrsEncoding = 0;
 		if (!aPath && fsRef && !IsZeros(fsRef, sizeof(FSRef))) {
 			NSMutableData *pathData = [NSMutableData dataWithLength:4 * 1024];
-			if (FSRefMakePath(fsRef, [pathData mutableBytes], [pathData length]) == noErr)
+			if (FSRefMakePath(fsRef, [pathData mutableBytes], (UInt32)[pathData length]) == noErr)
 				extendedAttrsEncoding = [[NSFileManager defaultManager] textEncodingAttributeOfFSPath:[pathData bytes]];
 		} else if (aPath) {
 			extendedAttrsEncoding = [[NSFileManager defaultManager] textEncodingAttributeOfFSPath:aPath];

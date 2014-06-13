@@ -364,7 +364,7 @@
 	return YES;
 }
 
-- (unsigned int)lastLengthReplaced {
+- (NSUInteger)lastLengthReplaced {
 	return lastLengthReplaced;
 }
 
