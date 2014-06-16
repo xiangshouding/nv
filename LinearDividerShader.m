@@ -148,9 +148,9 @@ static void ColorBlendFunction(void *info, const CGFloat *in, CGFloat *out);
 //		NSRectFill(aRect);
         NSPoint pt=aRect.origin;
         NSPoint endPt;
-        CGFloat strokeWt=0.24f;
+        CGFloat strokeWt=0.28f;
         if (!v&&(aRect.origin.x>0.0f)) { //draw single line for hor. layout
-            strokeWt=0.45f;
+            strokeWt=0.5f;
             pt.x+=0.5f;
             endPt=pt;
             endPt.y=ceilf(aRect.size.height);
@@ -191,7 +191,7 @@ static void ColorBlendFunction(void *info, const CGFloat *in, CGFloat *out);
 		[path moveToPoint:pt];
         [path lineToPoint:endPt];
         [path setLineWidth:1.0f];
-        [[backCol blendedColorWithFraction:0.25f ofColor:borderCol] setStroke];
+        [[backCol blendedColorWithFraction:0.27f ofColor:borderCol] setStroke];
         [path stroke];
 		/*
 		if (!NSIsEmptyRect(dimpleRect)&&(dimpleImage)) {
@@ -201,25 +201,6 @@ static void ColorBlendFunction(void *info, const CGFloat *in, CGFloat *out);
 
 	
 }
-
-//- (void)setBackColor:(NSColor *)inColor{
-//	[backCol release];
-//	[borderCol release];
-//	backCol = [inColor retain];
-//	borderCol = [inColor colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];	
-//	CGFloat fWhite;
-//	fWhite = [borderCol whiteComponent];
-//	if (fWhite < 0.75f) {
-//		if (fWhite<0.25f) {
-//			fWhite += 0.2f;
-//		}else {
-//			fWhite += 0.16f;
-//		}		
-//	}else {
-//		fWhite -= 0.25f;
-//	}	
-//	borderCol = [[NSColor colorWithCalibratedWhite:fWhite alpha:1.0f] retain];
-//}
 
 
 @end

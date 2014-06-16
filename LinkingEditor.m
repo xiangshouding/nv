@@ -1519,7 +1519,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
         unichar bulletChar, wsChar;
         NSRange realBulletRange = NSMakeRange(loc + previousLineRange.location, 2), carriedBulletRange = NSMakeRange(NSNotFound, 0);
         BOOL shouldDeleteLastBullet = NO;
-        NSInteger listNumber=NSNotFound;
+        NSInteger listNumber=-1;
         bulletChar = [str characterAtIndex:loc];
         BOOL isNumberedList=[[NSCharacterSet decimalDigitCharacterSet] characterIsMember:bulletChar];
         if ([prefsController autoFormatsListBullets]) {
@@ -1543,6 +1543,10 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
                 if (isNumberedList) {
                     
                     listNumber=[theNum integerValue];
+                    if (listNumber==-1||((listNumber==0)&&(![theNum isEqualToString:@"0"]))) {
+                        [previousLineScanner release];
+                        return;
+                    }
                     listNumber++;
                     previousLineWhitespaceString = [previousLineWhitespaceString stringByAppendingFormat:@"%ld.", listNumber];
                     
@@ -2022,7 +2026,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 
 
 - (BOOL)updateNumberedListFromRange:(NSRange)currentRange startingNum:(NSInteger)listNum{
-    if ((listNum==NSNotFound)||(currentRange.location==NSNotFound)) {
+    if ((listNum==-1)||(currentRange.location==NSNotFound)) {
         return NO;
     }
     NSRange nextRange=NSMakeRange(currentRange.location, 0);

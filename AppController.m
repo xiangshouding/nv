@@ -2347,15 +2347,19 @@ terminateApp:
 	return NO;
 }
 
+
 - (void)splitView:(RBSplitView*)sender willCollapse:(RBSplitSubview*)subview{
     if(!splitViewIsChangingLayout){
         [self setDualFieldIsVisible:NO];
-        [splitView setDividerThickness: kSplitViewCollapsedDividerThickness];
+        if ([self isInFullScreen]) {
+            [sender setMustAdjust];
+        }
     }
 }
 
 - (void)splitView:(RBSplitView*)sender didCollapse:(RBSplitSubview*)subview{
     if(!splitViewIsChangingLayout){
+        [splitView setDividerThickness: kSplitViewCollapsedDividerThickness];
         [window makeFirstResponder:textView];
         [splitView adjustSubviews];
         [mainView setNeedsDisplay:YES];
@@ -2365,13 +2369,16 @@ terminateApp:
 - (void)splitView:(RBSplitView*)sender willExpand:(RBSplitSubview*)subview{
     if(!splitViewIsChangingLayout){
         [self setDualFieldIsVisible:YES];
-        [splitView setDividerThickness:kSplitViewExpandedDividerThickness];
+        if ([self isInFullScreen]) {
+            [sender setMustAdjust];
+        }
     }
 }
 
 
 - (void)splitView:(RBSplitView*)sender didExpand:(RBSplitSubview*)subview{
     if(!splitViewIsChangingLayout){
+        [splitView setDividerThickness:kSplitViewExpandedDividerThickness];
         [splitView adjustSubviews];
         [mainView setNeedsDisplay:YES];
     }
@@ -2576,7 +2583,7 @@ terminateApp:
     [mainView addSubview:dualFieldView positioned:NSWindowAbove relativeTo:splitView];
 	NSRect dsvFrame = [dualSV frame];
 	dsvFrame.origin.y +=1.0;
-    if (![mainView isInFullScreenMode]) {
+    if (![self isInFullScreen]) {
         dsvFrame.origin.y +=4.0;
     }
 	dsvFrame.size.width = roundf(wSize.width * 0.99);
@@ -2592,7 +2599,7 @@ terminateApp:
 
 - (void)setDualFieldIsVisible:(BOOL)isVis{
     if ([self dualFieldIsVisible]!=isVis) {
-        if (IsLionOrLater||![mainView isInFullScreenMode]) {
+        if (IsLionOrLater||![self isInFullScreen]) {
             [toolbar setVisible:isVis];
         }else{
             NSSize wSize = [mainView frame].size;
@@ -2634,15 +2641,10 @@ terminateApp:
 
 
 - (BOOL)dualFieldIsVisible{
-    BOOL dfIsVis=NO;
-    if (!IsLionOrLater&&[mainView isInFullScreenMode]) {
-        if (dualFieldView) {
-            dfIsVis=![dualFieldView isHidden];
-        }
-    }else{
-        dfIsVis=[toolbar isVisible];
+    if (!IsLionOrLater&&dualFieldView&&[self isInFullScreen]) {
+        return ![dualFieldView isHidden];
     }
-    return dfIsVis;
+    return [toolbar isVisible];
 }
 
 - (IBAction)toggleCollapse:(id)sender{
@@ -2751,7 +2753,7 @@ terminateApp:
         CGFloat colW = [notesSubview dimension];
         
         wasDFVisible=[self dualFieldIsVisible];
-        if ([mainView isInFullScreenMode]) {
+        if ([self isInFullScreen]) {
             window = normalWindow;
             [mainView exitFullScreenModeWithOptions:options];
             
@@ -2873,14 +2875,12 @@ terminateApp:
         [[viewM  itemAtIndex:0] setState:0];
         [[viewM  itemAtIndex:1] setState:0];
         [[viewM  itemAtIndex:2] setState:1];
-        //NSLog(@"foreground col is: %@",[foregrndColor description]);
-        //NSLog(@"background col is: %@",[backgrndColor description]);
         [self updateColorScheme];
     }
     
 - (void)updateColorScheme{
     if (!IsLionOrLater) {        
-        [window setBackgroundColor:backgrndColor];//[NSColor blueColor]
+        [window setBackgroundColor:backgrndColor];
         [dualFieldView setBackgroundColor:backgrndColor];
     }
     [mainView setBackgroundColor:backgrndColor];
@@ -2897,7 +2897,6 @@ terminateApp:
         [self contentsUpdatedForNote:currentNote];
     }
     [dividerShader updateColorsWithBackgroundColor:backgrndColor andForegroundColor:foregrndColor];
-//    [dividerShader updateColors:backgrndColor];
     [splitView setNeedsDisplay:YES];
     
 }
@@ -2917,10 +2916,8 @@ terminateApp:
     if (self.isEditing) {
         [theFieldEditor setDrawsBackground:NO];
         [theFieldEditor setTextColor:foregrndColor];
-        // [theFieldEditor setBackgroundColor:backgrndColor];
         [theFieldEditor setSelectedTextAttributes:fieldAttributes];
         [theFieldEditor setInsertionPointColor:foregrndColor];
-        //   [notesTableView setNeedsDisplay:YES];
         
     }
     
@@ -2942,7 +2939,7 @@ terminateApp:
     
     - (NSColor *)backgrndColor{
         if (!backgrndColor) {
-            NSColor *theColor;// = [NSColor redColor];
+            NSColor *theColor;
             if (!userScheme) {
                 userScheme = [[NSUserDefaults standardUserDefaults] integerForKey:@"ColorScheme"];
             }
@@ -2975,8 +2972,7 @@ terminateApp:
             NSColor *theColor = [NSColor blackColor];
             if (!userScheme) {
                 userScheme = [[NSUserDefaults standardUserDefaults] integerForKey:@"ColorScheme"];
-            }
-            
+            }            
             if (userScheme==0) {
                 theColor = [NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
             }else if (userScheme==1) {
