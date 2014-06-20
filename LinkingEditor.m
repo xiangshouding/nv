@@ -1806,7 +1806,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
             insertString=(NSString *)string;
         }
         if((pairCode=[insertString isPairedCharacterWithMatchString:&oppositeAppend])>=0){
-            NSString *appendString = string;
+            NSString *appendString = insertString;
             NSRange selRange = [self selectedRange];
             NSString *postString = self.activeParagraphPastCursor;
             
