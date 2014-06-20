@@ -169,7 +169,7 @@
 @implementation BlorNoteEnumerator
 
 - (id)initWithBlor:(NSString*)blorPath passwordHashData:(NSData*)passwordHashData {
-	if ([super init]) {
+	if (self=[super init]) {
 		path = [blorPath retain];
 		
 		if (!(keyData = [passwordHashData retain]))
@@ -189,9 +189,10 @@
 			
 		currentByteOffset = 24;
 		//read past the # of notes marker--we're just going to read as many notes as possible
+        return self;
 	}
+    return nil;
 	
-	return self;
 }
 
 - (void)dealloc {

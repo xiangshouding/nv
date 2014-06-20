@@ -1756,11 +1756,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 }
 -(void)odbEditor:(ODBEditor *)editor didClosefile:(NSString *)path context:(NSDictionary *)context {
 	//remove the temp file	
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
 	[[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
-#else
-	[[NSFileManager defaultManager] removeFileAtPath:path handler:nil];
-#endif
+
 }
 
 - (NSRange)nextRangeForWords:(NSArray*)words options:(unsigned)opts range:(NSRange)inRange {

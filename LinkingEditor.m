@@ -1799,11 +1799,16 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
     if([prefsController useAutoPairing]){
         NSString *oppositeAppend;
         NSInteger pairCode;
-        if((pairCode=[string isPairedCharacterWithMatchString:&oppositeAppend])>=0){
-            //             NSLog(@"oppositeAppend:>%@< code:%ld",oppositeAppend,pairCode);
+        NSString *insertString;
+        if([string isKindOfClass:[NSAttributedString class]]){
+            insertString=[(NSAttributedString *)string string];
+        }else{
+            insertString=(NSString *)string;
+        }
+        if((pairCode=[insertString isPairedCharacterWithMatchString:&oppositeAppend])>=0){
             NSString *appendString = string;
             NSRange selRange = [self selectedRange];
-            NSString *postString = self.activeParagraphPastCursor;//[NSString stringWithString:self.activeParagraphPastCursor];
+            NSString *postString = self.activeParagraphPastCursor;
             
             NSInteger autoPair=-1;
             if ((postString.length==0)||(selRange.length>0)||![[NSCharacterSet alphanumericCharacterSet]characterIsMember:[postString characterAtIndex:0]]) {

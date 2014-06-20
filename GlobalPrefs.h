@@ -147,7 +147,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (void)setSoftTabs:(BOOL)value sender:(id)sender;
 - (BOOL)softTabs;
 
-- (int)numberOfSpacesInTab;
+- (NSInteger)numberOfSpacesInTab;
 
 - (float)tableFontSize;
 - (void)setTableFontSize:(float)fontSize sender:(id)sender;

@@ -272,15 +272,6 @@ CFDateFormatterRef simplenoteDateFormatter(int lowPrecision) {
 	
 }
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-- (NSString*)stringByReplacingOccurrencesOfString:(NSString*)stringToReplace withString:(NSString*)replacementString {
-	//NSLog(@"NSString_NV: %s", _cmd);
-	NSMutableString *sanitizedName = [[self mutableCopy] autorelease];
-	[sanitizedName replaceOccurrencesOfString:stringToReplace withString:replacementString options:NSLiteralSearch range:NSMakeRange(0, [sanitizedName length])];
-
-	return sanitizedName;
-}
-#endif
 
 - (NSString*)fourCharTypeString {
 	if ([[self dataUsingEncoding:NSMacOSRomanStringEncoding allowLossyConversion:YES] length] >= 4) {
@@ -619,13 +610,20 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
     if (self.length==1) {
         unichar ch=[self characterAtIndex:0];
         NSInteger chNum=(NSInteger)ch;
-//        NSLog(@"ch :%ld Is(:%d >%@<",chNum,(unsigned int)ch==40,self);
-        if (chNum==34){//[@"\"" isEqualToString:self]) {
+        if (chNum==34){
              *matchString=@"\"";
             return 1;
         }
-//         NSLog(@"ch is ]:%d",ch==[@"]" characterAtIndex:0]);
-        if ([[NSCharacterSet characterSetWithCharactersInString:@"([{"]characterIsMember:ch]){
+        static NSCharacterSet *leftSidePairCharacterSet;
+        if(!leftSidePairCharacterSet){
+            leftSidePairCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@"([{"] retain];
+        }
+        static NSCharacterSet *rightSidePairCharacterSet;
+        if(!rightSidePairCharacterSet){
+            rightSidePairCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@")]}"] retain];
+        }
+        
+        if ([leftSidePairCharacterSet characterIsMember:ch]){
             if (chNum==91){//[@"[" isEqualToString:self]) {
                 *matchString=@"]";
     //            return @"]";
@@ -637,7 +635,7 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
     //            return @"}";
             }
             return 2;
-        }else if ([[NSCharacterSet characterSetWithCharactersInString:@")]}"]characterIsMember:ch]) {
+        }else if ([rightSidePairCharacterSet characterIsMember:ch]) {
              if (chNum==93){//if ([@"]" isEqualToString:self]) {
                 *matchString=@"[";
             }else  if (chNum==41){//if ([@")" isEqualToString:self]) {
@@ -657,17 +655,17 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
 
 @implementation NSMutableString (NV)
 
-- (void)replaceTabsWithSpacesOfWidth:(int)tabWidth {
+- (void)replaceTabsWithSpacesOfWidth:(NSInteger)tabWidth {
 	NSAssert(tabWidth < 50 && tabWidth > 0, @"that's a ridiculous tab width");
 	
 	@try {
 		NSRange tabRange, nextRange = NSMakeRange(0, [self length]);
 		while ((tabRange = [self rangeOfString:@"\t" options:NSLiteralSearch range:nextRange]).location != NSNotFound) {
 			
-			int numberOfSpacesPerTab = tabWidth;
-			int locationOnLine = tabRange.location - [self lineRangeForRange:tabRange].location;
+			NSInteger numberOfSpacesPerTab = tabWidth;
+			NSUInteger locationOnLine = tabRange.location - [self lineRangeForRange:tabRange].location;
 			if (numberOfSpacesPerTab != 0) {
-				int numberOfSpacesLess = locationOnLine % numberOfSpacesPerTab;
+				NSUInteger numberOfSpacesLess = locationOnLine % numberOfSpacesPerTab;
 				numberOfSpacesPerTab = numberOfSpacesPerTab - numberOfSpacesLess;
 			}
 			//NSLog(@"loc on line: %d, numberOfSpacesPerTab: %d", locationOnLine, numberOfSpacesPerTab);
@@ -810,11 +808,6 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
 	
 }
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-+ (id)newlineCharacterSet {
-	return [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%C%C%C",0x000A,0x000D,0x0085]];
-}
-#endif
 
 @end
 

@@ -75,12 +75,14 @@
 			
 			if (![prefs encryptDataInNewSession:notesData]) {
 				NSLog(@"Couldn't encrypt data!");
+                [self dealloc];
 				return nil;
 			}
 		}
 		
 		if (![notesData length]) {
 			NSLog(@"%@: empty notesData; returning nil", NSStringFromSelector(_cmd));
+            [self dealloc];
 			return nil;
 		}
         return self;

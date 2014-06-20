@@ -128,7 +128,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithBool:YES], AutoIndentsNewLinesKey, 
 			[NSNumber numberWithBool:YES], AutoFormatsListBulletsKey,
 			[NSNumber numberWithBool:NO], UseSoftTabsKey,
-			[NSNumber numberWithInt:4], NumberOfSpacesInTabKey,
+			[NSNumber numberWithInteger:4], NumberOfSpacesInTabKey,
 			[NSNumber numberWithBool:YES], PastePreservesStyleKey,
 			[NSNumber numberWithBool:YES], TabKeyIndentsKey,
 			[NSNumber numberWithBool:YES], ConfirmNoteDeletionKey,
@@ -547,8 +547,8 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 	return [defaults boolForKey:UseSoftTabsKey];
 }
 
-- (int)numberOfSpacesInTab {
-	return (int)[defaults integerForKey:NumberOfSpacesInTabKey];
+- (NSInteger)numberOfSpacesInTab {
+	return [defaults integerForKey:NumberOfSpacesInTabKey];
 }
 
 BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
@@ -683,7 +683,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 	NSFont *bodyFont = [self noteBodyFont];
 
 	if (!noteBodyParagraphStyle && bodyFont) {
-		int numberOfSpaces = [self numberOfSpacesInTab];
+		NSInteger numberOfSpaces = [self numberOfSpacesInTab];
 		NSMutableString *sizeString = [[NSMutableString alloc] initWithCapacity:numberOfSpaces];
 		while (numberOfSpaces--) {
 			[sizeString appendString:@" "];

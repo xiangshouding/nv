@@ -29,20 +29,17 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 @implementation NoteBookmark
 
 - (id)initWithDictionary:(NSDictionary*)aDict {
-    if (self=[super init]) {
         if (aDict) {
             NSString *uuidString = [aDict objectForKey:BMNoteUUIDStringKey];
             if (uuidString) {
-                [self initWithNoteUUIDBytes:[uuidString uuidBytes] searchString:[aDict objectForKey:BMSearchStringKey]];
+                return (self=[self initWithNoteUUIDBytes:[uuidString uuidBytes] searchString:[aDict objectForKey:BMSearchStringKey]]);
             } else {
                 NSLog(@"NoteBookmark init: supplied nil uuidString");
             }
         } else {
             NSLog(@"NoteBookmark init: supplied nil dictionary; couldn't init");
-            return nil;
+            
         }
-        return self;
-    }
     return nil;
 }
 
@@ -57,23 +54,19 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 }
 
 - (id)initWithNoteObject:(NoteObject*)aNote searchString:(NSString*)aString {
-	if(self=[super init]){
-        if (aNote) {
+	
+    if (aNote) {
+        
+        CFUUIDBytes *bytes = [aNote uniqueNoteIDBytes];
+        if (!bytes) {
+            NSLog(@"NoteBookmark init: no cfuuidbytes pointer from note %@", titleOfNote(aNote));
+        }else if(self=[self initWithNoteUUIDBytes:*bytes searchString:aString]){
             noteObject = [aNote retain];
-            searchString = [aString copy];
-            
-            CFUUIDBytes *bytes = [aNote uniqueNoteIDBytes];
-            if (!bytes) {
-                NSLog(@"NoteBookmark init: no cfuuidbytes pointer from note %@", titleOfNote(aNote));
-                return nil;
-            }
-            uuidBytes = *bytes;
-        } else {
-            NSLog(@"NoteBookmark init: supplied nil note");
-            return nil;
+            return self;
         }
-        return self;
     }
+    NSLog(@"NoteBookmark init: supplied nil note");
+    [self release];
     return nil;
 }
 
@@ -538,11 +531,11 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 		NSString *newString = [[appController fieldSearchString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];		
 		
 		NoteBookmark *bookmark = [[NoteBookmark alloc] initWithNoteObject:[appController selectedNoteObject] searchString:newString];
-		if (bookmark) {
-			
+		if (bookmark!=nil) {
 			NSUInteger existingIndex = [bookmarks indexOfObject:bookmark];
 			if (existingIndex != NSNotFound) {
 				//show them what they've already got
+                
 				NoteBookmark *existingBookmark = [bookmarks objectAtIndex:existingIndex];
 				if ([window isVisible]) [self selectBookmarkInTableView:existingBookmark];
 			} else {
@@ -551,8 +544,8 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 				[self updateBookmarksUI];
 				if ([window isVisible]) [self selectBookmarkInTableView:bookmark];
 			}
-		}
-		[bookmark release];
+        }
+        [bookmark release];
 	} else {
 		//there are only so many numbers and modifiers
 		NSRunAlertPanel(NSLocalizedString(@"Too many bookmarks.",nil), NSLocalizedString(@"You cannot create more than 26 bookmarks. Try removing some first.",nil), NSLocalizedString(@"OK",nil), nil, NULL);
