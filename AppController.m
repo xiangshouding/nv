@@ -931,7 +931,7 @@ terminateApp:
 }
 
 - (IBAction)previewNoteWithMarked:(id)sender {
-    if (![[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marky"] isFileURL])
+    if (![[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marked2"] isFileURL])
     {
         NSBeep();
         NSLog(@"Marked not found");
