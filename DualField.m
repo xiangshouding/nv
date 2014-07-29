@@ -437,14 +437,14 @@
 	NSRectFill(NSInsetRect(tBounds, 5, 1));
 	
 	NSImage *leftCap = [NSImage imageNamed: isActiveWin ? @"DFCapLeftRounded" : @"DFCapLeftRoundedInactive"];
-	[leftCap setFlipped:YES];
+//	[leftCap setFlipped:YES];
 	NSRect leftImageRect = NSMakeRect(0, 0, [leftCap size].width, [leftCap size].height);
-	[leftCap drawInRect:leftImageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	[leftCap drawInRect:leftImageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
 	
 	NSImage *rightCap = [NSImage imageNamed: isActiveWin ? @"DFCapRight" : @"DFCapRightInactive"];
-	[rightCap setFlipped:YES];
+//	[rightCap setFlipped:YES];
 	NSRect rightImageRect = NSMakeRect(tBounds.size.width - [rightCap size].width, 0, [rightCap size].width, [rightCap size].height);
-	[rightCap drawInRect:rightImageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	[rightCap drawInRect:rightImageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
 
 	[[NSColor colorWithDeviceWhite: isActiveWin ? 0.31f : 0.62f alpha:1.0f] set];
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(tBounds.origin.x + [leftCap size].width, tBounds.origin.y + .5) 
@@ -462,9 +462,9 @@
 							  toPoint:NSMakePoint(tBounds.size.width - [rightCap size].width, tBounds.origin.y + tBounds.size.height )];
 	
 	NSImage *docIcon = [NSImage imageNamed: showsDocumentIcon ? @"Pencil" : @"Search" ];
-	[docIcon setFlipped:YES];
+//	[docIcon setFlipped:YES];
 	NSRect docImageRect = NSMakeRect(BORDER_LEFT_OFFSET, BORDER_TOP_OFFSET, [docIcon size].width, [docIcon size].height);
-	[docIcon drawInRect:docImageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	[docIcon drawInRect:docImageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
 	
 	[NSGraphicsContext restoreGraphicsState];
 	

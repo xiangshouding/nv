@@ -267,10 +267,13 @@ static ExternalEditorListController* sharedInstance = nil;
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setResolvesAliases:YES];
     [openPanel setAllowsMultipleSelection:NO];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:@"/Applications"]];
+    [openPanel setAllowedFileTypes:@[@"app"]];
     
-    if ([openPanel runModalForDirectory:@"/Applications" file:nil types:[NSArray arrayWithObject:@"app"]] == NSOKButton) {
-		if (![openPanel filename]) goto errorReturn;
-		NSURL *appURL = [NSURL fileURLWithPath:[openPanel filename]];
+    if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
+		if (![[openPanel URL]path]) goto errorReturn;
+		NSURL *appURL = [openPanel URL];
+       
 		if (!appURL) goto errorReturn;
 		
 		ExternalEditor *ed = [[ExternalEditor alloc] initWithBundleID:nil resolvedURL:appURL];

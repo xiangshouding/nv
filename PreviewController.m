@@ -15,6 +15,7 @@
 #import "ETTransparentButtonCell.h"
 #import "ETTransparentButton.h"
 #import "BTTransparentScroller.h"
+#import "NSFileManager_NV.h"
 
 #define kDefaultMarkupPreviewVisible @"markupPreviewVisible"
 
@@ -387,7 +388,8 @@
 		NSString *folder = [[NSFileManager defaultManager] applicationSupportDirectory];
 		if ([fileManager fileExistsAtPath: folder] == NO)
 		{
-				[fileManager createDirectoryAtPath: folder attributes: nil];
+            [fileManager createFolderAtPath:folder];
+//				[fileManager createDirectoryAtPath: folder attributes: nil];
 
 		}
 
@@ -568,10 +570,24 @@
   }
 
 	NSString *noteTitle =  ([app selectedNoteObject]) ? [NSString stringWithFormat:@"%@",titleOfNote([app selectedNoteObject])] : @"";
-	[savePanel beginSheetForDirectory:nil file:noteTitle modalForWindow:[self window] modalDelegate:self
-					   didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
-
-
+//	[savePanel beginSheetForDirectory:nil file:noteTitle modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    savePanel.nameFieldStringValue=noteTitle;
+[savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger returnCode) {
+    if (returnCode == NSFileHandlingPanelOKButton) {
+        NSString *processedString = [[[NSString alloc] init] autorelease];
+        
+        if ([app currentPreviewMode] == MarkdownPreview) {
+            processedString = [NSString stringWithProcessedMarkdown:rawString];
+        } else if ([app currentPreviewMode] == MultiMarkdownPreview) {
+            processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedMultiMarkdown:rawString] : [NSString xhtmlWithProcessedMultiMarkdown:rawString];
+        } else if ([app currentPreviewMode] == TextilePreview) {
+            processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedTextile:rawString] : [NSString xhtmlWithProcessedTextile:rawString];
+        }
+        NSURL *file = [savePanel URL];
+        NSError *error;
+        [processedString writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    }
+}];
 	[fileTypes release];
 
 }

@@ -185,5 +185,55 @@ errorReturn:
 	return path;
 }
 
+- (BOOL)createFolderAtPath:(NSString *)path{
+    return [self createFolderAtPath:path withAttributes:nil];
+}
+
+- (BOOL)createFolderAtPath:(NSString *)path withAttributes:(NSDictionary *)attributes{
+    NSError *err=nil;
+    if (![self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error:&err]||(err!=nil)) {
+        NSLog(@"trouble creating directory at path:>%@<",[err description]);
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+- (NSDictionary *)attributesAtPath:(NSString *)path followLink:(BOOL)follow{
+    
+    if (follow) {
+        path=[path stringByResolvingSymlinksInPath];
+    }
+    NSError *err=nil;
+    NSDictionary *dict=[self attributesOfItemAtPath:path error:&err];
+    if ((dict!=nil)&&(err==nil)) {
+        return dict;
+    }else if (err) {
+        NSLog(@"trouble getting attributes at path:>%@<\ndict:%@",[err description],dict);
+    }
+    
+    return [NSDictionary dictionary];
+}
+
+- (NSArray *)folderContentsAtPath:(NSString *)path{
+    NSError *err=nil;
+    NSArray *arr=[self contentsOfDirectoryAtPath:path error:&err];
+    if ((arr!=nil)&&(err==nil)) {
+        return arr;
+    }else if (err) {
+        NSLog(@"trouble getting contents of path:>%@<",[err description]);
+    }
+    return @[];
+}
+
+- (BOOL)deleteFileAtPath:(NSString *)path{
+    NSError *err=nil;
+    if([self removeItemAtPath:path error:&err]&&(err==nil)){
+        return YES;
+    }else if(err){
+        NSLog(@"trouble removing file at path:>%@<",err.localizedDescription);
+    }
+    return NO;
+}
 
 @end
