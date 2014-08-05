@@ -706,7 +706,7 @@ terminateApp:
     } else if (selector == @selector(editNoteExternally:)) {
         return (numberSelected > 0) && [[menuItem representedObject] canEditAllNotes:[notationController notesAtIndexes:[notesTableView selectedRowIndexes]]];
 	}else if (selector == @selector(previewNoteWithMarked:)){
-        BOOL gotMarked=[[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marky"] isFileURL];
+        BOOL gotMarked=[[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marky"] isFileURL] || [[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marked2"] isFileURL];
         if ([menuItem isHidden]==gotMarked) {
             [menuItem setHidden:!gotMarked];
         }
@@ -931,7 +931,7 @@ terminateApp:
 }
 
 - (IBAction)previewNoteWithMarked:(id)sender {
-    if (![[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marked2"] isFileURL])
+    if (![[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marked2"] isFileURL] && ![[[NSWorkspace sharedWorkspace]URLForApplicationWithBundleIdentifier:@"com.brettterpstra.marky"] isFileURL])
     {
         NSBeep();
         NSLog(@"Marked not found");
