@@ -59,7 +59,7 @@
 #define NSApplicationPresentationHideDock (1 <<  1)
 //#define NSApplicationActivationPolicyAccessory
 
-#define kSparkleUpdateFeedForLions @"http://abyss.designheresy.com/nvalt2/nvalt2main.xml"
+#define kSparkleUpdateFeedForLions @"http://abyss.designheresy.com/nvalt/updates.xml"
 #define kSparkleUpdateFeedForSnowLeopard @"http://abyss.designheresy.com/nvalt2/nvalt2snowleopardfeed.xml"
 //http://abyss.designheresy.com/nvalt/betaupdates.xml
 
@@ -127,7 +127,9 @@ BOOL splitViewAwoke;
         
         if ([fileManager fileExistsAtPath: folder] == NO)
         {
-            [fileManager createDirectoryAtPath: folder attributes: nil];
+            [fileManager createFolderAtPath:folder];
+            
+//            [fileManager createDirectoryAtPath: folder attributes: nil];
             
         }
         
@@ -174,7 +176,7 @@ BOOL splitViewAwoke;
     [[NSColor clearColor] set];
     NSRectFill(NSMakeRect(0.0,0.0,1.0,1.0));
     [image unlockFocus];
-    [image setFlipped:YES];
+//    [image setFlipped:YES];
     [splitView setDivider:image];
     
 //    [splitView setDividerThickness:kSplitViewExpandedDividerThickness];
@@ -832,55 +834,76 @@ terminateApp:
     
 	[notesTableView editRowAtColumnWithIdentifier:NoteTitleColumnString];
 }
-
-- (void)deleteAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    
-	id retainedDeleteObj = (id)contextInfo;
-	
-	if (returnCode == NSAlertDefaultReturn) {
-		//delete! nil-msgsnd-checking
-		
-		//ensure that there are no pending edits in the tableview,
-		//lest editing end with the same field editor and a different selected note
-		//resulting in the renaming of notes in adjacent rows
-		[notesTableView abortEditing];
-		
-		if ([retainedDeleteObj isKindOfClass:[NSArray class]]) {
-			[notationController removeNotes:retainedDeleteObj];
-		} else if ([retainedDeleteObj isKindOfClass:[NoteObject class]]) {
-			[notationController removeNote:retainedDeleteObj];
-		}
-		
-		if (IsLeopardOrLater && [[alert suppressionButton] state] == NSOnState) {
-			[prefsController setConfirmNoteDeletion:NO sender:self];
-		}
-	}
-	[retainedDeleteObj release];
+//
+- (void)deleteAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(NSIndexSet *)contextInfo {
+    if ((returnCode == NSAlertFirstButtonReturn)&&(contextInfo!=nil)&&([contextInfo count]>0)) {
+//        NSLog(@"gonna delete:%@",contextInfo);
+        
+//        NSIndexSet *indexes=(NSIndexSet *)contextInfo;
+        [notationController removeNotesAtIndexes:contextInfo];
+    }
+    [contextInfo release];
+    [alert release];
 }
+
+//
+//	id retainedDeleteObj = (id)contextInfo;
+//	
+//	if (returnCode == NSAlertDefaultReturn) {
+//		//delete! nil-msgsnd-checking
+//		
+//		//ensure that there are no pending edits in the tableview,
+//		//lest editing end with the same field editor and a different selected note
+//		//resulting in the renaming of notes in adjacent rows
+//		[notesTableView abortEditing];
+//		
+//		if ([retainedDeleteObj isKindOfClass:[NSArray class]]) {
+//			[notationController removeNotes:retainedDeleteObj];
+//		} else if ([retainedDeleteObj isKindOfClass:[NoteObject class]]) {
+//			[notationController removeNote:retainedDeleteObj];
+//		}
+//		
+//		if (IsLeopardOrLater && [[alert suppressionButton] state] == NSOnState) {
+//			[prefsController setConfirmNoteDeletion:NO sender:self];
+//		}
+//	}
+//	[retainedDeleteObj release];
+//}
 
 
 - (IBAction)deleteNote:(id)sender {
-    
 	NSIndexSet *indexes = [notesTableView selectedRowIndexes];
 	if ([indexes count] > 0) {
-		id deleteObj = [indexes count] > 1 ? (id)([notationController notesAtIndexes:indexes]) : (id)([notationController noteObjectAtFilteredIndex:[indexes firstIndex]]);
 		
 		if ([prefsController confirmNoteDeletion]) {
-			[deleteObj retain];
+//			[deleteObj retain];
 			NSString *warningSingleFormatString = NSLocalizedString(@"Delete the note titled quotemark%@quotemark?", @"alert title when asked to delete a note");
 			NSString *warningMultipleFormatString = NSLocalizedString(@"Delete %d notes?", @"alert title when asked to delete multiple notes");
 			NSString *warnString = currentNote ? [NSString stringWithFormat:warningSingleFormatString, titleOfNote(currentNote)] :
 			[NSString stringWithFormat:warningMultipleFormatString, [indexes count]];
 			
-			NSAlert *alert = [NSAlert alertWithMessageText:warnString defaultButton:NSLocalizedString(@"Delete", @"name of delete button")
-										   alternateButton:NSLocalizedString(@"Cancel", @"name of cancel button") otherButton:nil
-								 informativeTextWithFormat:NSLocalizedString(@"Press Command-Z to undo this action later.", @"informational delete-this-note? text")];
-			if (IsLeopardOrLater) [alert setShowsSuppressionButton:YES];
-			
-			[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(deleteAlertDidEnd:returnCode:contextInfo:) contextInfo:(void*)deleteObj];
+            NSAlert *alert=[NSAlert new];
+            alert.messageText=warnString;
+            alert.informativeText=NSLocalizedString(@"Press Command-Z to undo this action later.", @"informational delete-this-note? text");
+            [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"name of delete button")];
+            [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"name of cancel button")];
+            [alert setShowsSuppressionButton:YES];
+            if (IsMavericksOrLater) {
+                [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+                    if (returnCode == NSAlertFirstButtonReturn) {
+                        [notationController removeNotesAtIndexes:indexes];
+                    }
+                }];
+                [alert release];
+                    
+            }else{
+                [indexes retain];
+                [alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(deleteAlertDidEnd:returnCode:contextInfo:) contextInfo:indexes];
+            }
+            
 		} else {
-			//just delete the notes outright
-			[notationController performSelector:[indexes count] > 1 ? @selector(removeNotes:) : @selector(removeNote:) withObject:deleteObj];
+            //just delete the notes outright
+            [notationController removeNotesAtIndexes:indexes];
 		}
 	}
 }
@@ -2390,7 +2413,7 @@ terminateApp:
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     if (aTableView==notesTableView) {
         if ([aCell isHighlighted]) {           
-            if (([window firstResponder]==notesTableView)||([notesTableView rowHeight]>30.0)||(isEditing&&([notesTableView editedRow]==rowIndex))) {
+            if (([window firstResponder]==notesTableView)||(isEditing&&([notesTableView editedRow]==rowIndex))) {//([notesTableView rowHeight]>30.0)||
                 [aCell setTextColor:[NSColor whiteColor]];
                 return;
             }else if ([[foregrndColor colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent]>0.5) {                    

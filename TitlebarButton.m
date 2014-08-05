@@ -54,7 +54,7 @@
 	static NSString *whiteImages[] = { nil, @"TBDownArrowWhite", @"TBSynchronizingWhite", @"TBAlertWhite" };
 
 	NSImage *img = [NSImage imageNamed: isHovering ? whiteImages[iconType] : normalImages[iconType] ];
-	[img setFlipped:YES];
+//	[img setFlipped:YES];
 	
 	if (SynchronizingIcon == iconType) {
 		
@@ -72,7 +72,7 @@
 	
 	NSRect imgRect = NSMakeRect(0, 0, [img size].width, [img size].height);
 	[img drawInRect:imgRect fromRect:NSZeroRect operation:NSCompositeSourceOver 
-		   fraction:isHovering ? 1.0 : ([[controlView window] isMainWindow] ? 0.83 : 0.5)];
+		   fraction:isHovering ? 1.0 : ([[controlView window] isMainWindow] ? 0.83 : 0.5) respectFlipped:YES hints:nil];
 
 	
 	if (SynchronizingIcon == iconType) {

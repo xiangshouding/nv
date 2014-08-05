@@ -157,7 +157,7 @@ NSAttributedString *AttributedStringForSelection(NSAttributedString *str, BOOL w
 	NSMutableAttributedString *colorFreeStr = [str mutableCopy];
 	[colorFreeStr removeAttribute:NSForegroundColorAttributeName range:fullRange];
 	if (withShadow) {
-		[colorFreeStr addAttribute:NSShadowAttributeName value:ShadowForSnowLeopard() range:NSMakeRange(0, [str length])];
+		//[colorFreeStr addAttribute:NSShadowAttributeName value:ShadowForSnowLeopard() range:NSMakeRange(0, [str length])];
 	}
 	return [colorFreeStr autorelease];
 }
@@ -186,7 +186,7 @@ NSAttributedString *AttributedStringForSelection(NSAttributedString *str, BOOL w
 	if (textColor)
 		[baseAttrs setObject:textColor forKey:NSForegroundColorAttributeName];
 	if (IsSnowLeopardOrLater && [self isHighlighted] && ([tv selectionHighlightStyle] == NSTableViewSelectionHighlightStyleSourceList)) {
-		[baseAttrs setObject:ShadowForSnowLeopard() forKey:NSShadowAttributeName];
+//		[baseAttrs setObject:ShadowForSnowLeopard() forKey:NSShadowAttributeName];
 	}
 	
 	float fontHeight = [tv tableFontHeight];

@@ -344,7 +344,8 @@ long BlockSizeForNotation(NotationController *controller) {
 		[openPanel setMessage:NSLocalizedString(@"Select a new location for your Notational Velocity notes.",nil)];
 		
 		if ([openPanel runModal] == NSOKButton) {
-			CFStringRef filename = (CFStringRef)[openPanel filename];
+            
+			CFStringRef filename = (CFStringRef)[[openPanel URL]path];
 			if (filename) {
 				
 				FSRef newParentRef;
@@ -618,7 +619,9 @@ terminate:
 		NSLog(@"notifyOfChangedTrash: error getting trash: %d", err);
 	
 	 NSString *sillyDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[(NSString*)CreateRandomizedFileName() autorelease]];
-	 [[NSFileManager defaultManager] createDirectoryAtPath:sillyDirectory attributes:nil];
+//	 [[NSFileManager defaultManager] createDirectoryAtPath:sillyDirectory attributes:nil];
+    
+    [[NSFileManager defaultManager]createFolderAtPath:sillyDirectory];
 	 NSInteger tag = 0;
 	 [[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:NSTemporaryDirectory() destination:@"" 
 												   files:[NSArray arrayWithObject:[sillyDirectory lastPathComponent]] tag:&tag];

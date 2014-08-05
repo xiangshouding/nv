@@ -1044,6 +1044,18 @@ bail:
     notesChanged = YES;
 }
 
+
+- (void)removeNotesAtIndexes:(NSIndexSet *)indexes{
+    //just delete the notes outright
+    if (!indexes||([indexes count]==0)) {
+        return;
+    }else if ([indexes count]>1) {
+        [self removeNotes:[self notesAtIndexes:indexes]];
+    }else{
+        [self removeNote:[self noteObjectAtFilteredIndex:[indexes firstIndex]]];
+    }
+}
+
 //the gateway methods must always show warnings, or else flash overlay window if show-warnings-pref is off
 - (void)removeNotes:(NSArray*)noteArray {
 	NSEnumerator *enumerator = [noteArray objectEnumerator];

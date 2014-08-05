@@ -12,6 +12,7 @@
 
 #import "URLGetter.h"
 #import "GlobalPrefs.h"
+#import "NSFileManager_NV.h"
 
 @implementation URLGetter
 
@@ -122,7 +123,8 @@
 	
 	[tempDirectory autorelease];
 	tempDirectory = [[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]] retain];
-	if (![[NSFileManager defaultManager] createDirectoryAtPath:tempDirectory attributes:nil]) {
+   //if (![[NSFileManager defaultManager] createDirectoryAtPath:tempDirectory attributes:nil]) {
+	if (![[NSFileManager defaultManager]createFolderAtPath:tempDirectory]) {
 		NSLog(@"URLGetter: Couldn't create temporary directory!");
 		[download cancel];
 		NSBeep();
@@ -161,15 +163,19 @@
 	//clean up after ourselves
 	NSFileManager *fileMan = [NSFileManager defaultManager];
 	if (downloadPath) {
-		[fileMan removeFileAtPath:downloadPath handler:NULL];
+        [fileMan deleteFileAtPath:downloadPath];
+//		[fileMan removeFileAtPath:downloadPath handler:NULL];
 		[downloadPath release];
 		downloadPath = nil;
 	}
 	
 	if (tempDirectory) {
 		//only remove temporary directory if there's nothing in it
-		if (![[fileMan directoryContentsAtPath:tempDirectory] count])
-			[fileMan removeFileAtPath:tempDirectory handler:NULL];
+		
+        
+        if (![[fileMan folderContentsAtPath:tempDirectory] count])
+			[fileMan deleteFileAtPath:tempDirectory];
+//            [fileMan removeFileAtPath:tempDirectory handler:NULL];
 		else
 			NSLog(@"note removing %@ because it still contains files!", tempDirectory);
 		[tempDirectory release];

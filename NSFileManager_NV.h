@@ -32,5 +32,10 @@
 - (NSStringEncoding)textEncodingAttributeOfFSPath:(const char*)path;
 - (NSString*)pathFromFSPath:(char*)path;
 - (NSString*)pathWithFSRef:(FSRef*)fsRef;
+- (BOOL)createFolderAtPath:(NSString *)path;
+- (BOOL)createFolderAtPath:(NSString *)path withAttributes:(NSDictionary *)attributes;
+- (NSDictionary *)attributesAtPath:(NSString *)path followLink:(BOOL)follow;
+- (NSArray *)folderContentsAtPath:(NSString *)path;
+- (BOOL)deleteFileAtPath:(NSString *)path;
 
 @end
