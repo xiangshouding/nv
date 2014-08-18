@@ -114,4 +114,5 @@
 - (void)enableEncryption;
 - (void)_disableEncryption;
 - (void)disableEncryptionWithWarning:(BOOL)warning;
+
 @end

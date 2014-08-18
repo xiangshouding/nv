@@ -171,6 +171,11 @@
 
 }
 
+- (void)mirrorAllOMToFinderTags
+{
+	[allNotes makeObjectsPerformSelector:@selector(mirrorTags)];
+}
+
 - (void)upgradeDatabaseIfNecessary {
 	if (![notationPrefs firstTimeUsed]) {
 		

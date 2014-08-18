@@ -23,13 +23,52 @@
 
 #define kMaxDataSize 4096
 
+- (BOOL)mirrorOMToFinderTags:(const char*)path
+{
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UseFinderTags"]) return NO;
+
+	id tags = [self getOpenMetaTagsAtFSPath:path];
+	
+	return [self setFinderTags:tags atFSPath:path];
+}
+
+- (id)getTagsAtFSPath:(const char*)path
+{
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseFinderTags"])
+	{
+		return [self getFinderTagsAtFSPath:path];
+	}
+	else
+	{
+		return [self getOpenMetaTagsAtFSPath:path];
+	}
+}
+
+- (id)getFinderTagsAtFSPath:(const char*)path
+{
+	if (!path) return nil;
+
+	NSURL *url = [NSURL fileURLWithPath:[NSString stringWithCString:path encoding:NSUTF8StringEncoding]];
+	NSArray *existingTags;
+	NSError *error;
+	if (![url getResourceValue:&existingTags forKey:NSURLTagNamesKey error:&error])
+	{
+		return nil;
+	}
+	else
+	{
+		return existingTags;
+	}
+
+}
+
 - (id)getOpenMetaTagsAtFSPath:(const char*)path {
 	//return convention: empty tags should be an empty array; 
 	//for files that have never been tagged, or that have had their tags removed, return 
 	//files might lose their metadata if edited externally or synced without being first encoded
 	
 	if (!path) return nil;
-	
+
 	const char* inKeyNameC = "com.apple.metadata:kMDItemOMUserTags";
 	// retrieve data from store. 
 	char* data[kMaxDataSize];
@@ -60,11 +99,41 @@
 }
 
 
+- (BOOL)setTags:(id)plistObject atFSPath:(const char*)path {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseFinderTags"])
+	{
+		return [self setFinderTags:plistObject atFSPath:path];
+	}
+	else
+	{
+		return [self setOpenMetaTags:plistObject atFSPath:path];
+	}
+}
+
+- (BOOL)setFinderTags:(id)plistObject atFSPath:(const char*)path
+{
+	if (!path) return NO;
+	NSURL *url = [NSURL fileURLWithPath:[NSString stringWithCString:path]];
+	NSArray *tagArray = [NSArray arrayWithArray:plistObject];
+	NSError *error;
+	if (![url setResourceValue:tagArray forKey:NSURLTagNamesKey error:&error])
+	{
+		NSLog(@"%@", error);
+		NSLog(@"Error setting Finder tags for %@", [url path]);
+		return NO;
+	}
+	else
+	{
+		return YES;
+	}
+}
+
+
 - (BOOL)setOpenMetaTags:(id)plistObject atFSPath:(const char*)path {
 	if (!path) return NO;
-	
+
 	// If the object passed in has no data - is a string of length 0 or an array or dict with 0 objects, then we remove the data at the key.
-	
+
 	const char* inKeyNameC = "com.apple.metadata:kMDItemOMUserTags";
 	
 	long returnVal = 0;

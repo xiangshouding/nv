@@ -37,6 +37,7 @@
 	IBOutlet NSButton *styledTextButton;
 	IBOutlet NSButton *autoSuggestLinksButton;
 	IBOutlet NSButton *softTabsButton;
+	IBOutlet NSButton *useFinderTagsButton;
 	IBOutlet NSButton *makeURLsClickable;
 	IBOutlet NSButton *highlightSearchTermsButton;
 	IBOutlet NSColorWell *searchHighlightColorWell, *foregroundColorWell, *backgroundColorWell;
@@ -84,6 +85,7 @@
 - (IBAction)changedExternalEditorsMenu:(id)sender;
 - (IBAction)changedTitleCompletion:(id)sender;
 - (IBAction)changedSoftTabs:(id)sender;
+- (IBAction)changedUseFinderTags:(id)sender;
 - (IBAction)changedUseMarkdownImport:(id)sender;
 - (IBAction)changedUseReadability:(id)sender;
 - (IBAction)changedShowGrid:(id)sender;

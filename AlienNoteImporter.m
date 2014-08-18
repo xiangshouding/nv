@@ -458,7 +458,7 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 		[attributedStringFromData autorelease];
 		
 		//transfer any openmeta tags associated with this file as tags for the new note
-		NSArray *openMetaTags = [[NSFileManager defaultManager] getOpenMetaTagsAtFSPath:[filename fileSystemRepresentation]];
+		NSArray *openMetaTags = [[NSFileManager defaultManager] getTagsAtFSPath:[filename fileSystemRepresentation]];
 		
 		//we do not also use filename as uniqueFilename, as we are only importing--not taking ownership
 		NoteObject *noteObject = [[NoteObject alloc] initWithNoteBody:attributedStringFromData title:title delegate:nil 

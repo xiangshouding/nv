@@ -147,6 +147,9 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (void)setSoftTabs:(BOOL)value sender:(id)sender;
 - (BOOL)softTabs;
 
+- (void)setUseFinderTags:(BOOL)value sender:(id)sender;
+- (BOOL)useFinderTags;
+
 - (NSInteger)numberOfSpacesInTab;
 
 - (float)tableFontSize;

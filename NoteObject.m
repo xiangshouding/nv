@@ -1182,6 +1182,23 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
     return wroteAllOfNote;
 }
 
+- (void)mirrorTags {
+	if ([delegate currentNoteStorageFormat] == SingleDatabaseFormat)
+		return;
+
+	@try {
+		[[NSFileManager defaultManager] mirrorOMToFinderTags:[[self noteFilePath] cStringUsingEncoding:NSUTF8StringEncoding]];
+	}
+	@catch (NSException *exception) {
+		NSLog(@"%@",exception);
+	}
+	@finally {
+		return;
+	}
+
+}
+
+
 - (BOOL)writeUsingCurrentFileFormat {
 
     NSData *formattedData = nil;
@@ -1254,7 +1271,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			(void)[self writeCurrentFileEncodingToFSRef:noteFileRefInit(self)];
 		}
 		NSFileManager *fileMan = [NSFileManager defaultManager];
-		[fileMan setOpenMetaTags:[self orderedLabelTitles] atFSPath:[[fileMan pathWithFSRef:noteFileRefInit(self)] fileSystemRepresentation]];
+		[fileMan setTags:[self orderedLabelTitles] atFSPath:[[fileMan pathWithFSRef:noteFileRefInit(self)] fileSystemRepresentation]];
 		
 		//always hide the file extension for all types
 		LSSetExtensionHiddenForRef(noteFileRefInit(self), TRUE);
@@ -1446,7 +1463,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 	NSMutableData *pathData = [NSMutableData dataWithLength:4 * 1024];
 	if (FSRefMakePath(noteFileRefInit(self), [pathData mutableBytes], [pathData length]) == noErr) {
 		
-		NSArray *openMetaTags = [[NSFileManager defaultManager] getOpenMetaTagsAtFSPath:[pathData bytes]];
+		NSArray *openMetaTags = [[NSFileManager defaultManager] getTagsAtFSPath:[pathData bytes]];
 		if (openMetaTags) {
 			//overwrite this note's labels with those from the file; merging may be the wrong thing to do here
 			if ([self _setLabelString:[openMetaTags componentsJoinedByString:@" "]])
@@ -1456,7 +1473,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			//so if this note still has tags, then restore them now.
 			
 			NSLog(@"restoring lost tags for %@", titleString);
-			[[NSFileManager defaultManager] setOpenMetaTags:[self orderedLabelTitles] atFSPath:[pathData bytes]];
+			[[NSFileManager defaultManager] setTags:[self orderedLabelTitles] atFSPath:[pathData bytes]];
 			didRestoreLabels = YES;
 		}
 	}
@@ -1713,7 +1730,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		(void)[self writeCurrentFileEncodingToFSRef:&fileRef];
 	}
 	NSFileManager *fileMan = [NSFileManager defaultManager];
-	[fileMan setOpenMetaTags:[self orderedLabelTitles] atFSPath:[[fileMan pathWithFSRef:&fileRef] fileSystemRepresentation]];
+	[fileMan setTags:[self orderedLabelTitles] atFSPath:[[fileMan pathWithFSRef:&fileRef] fileSystemRepresentation]];
 	
 	//also export the note's modification and creation dates
 	FSCatalogInfo catInfo;

@@ -118,6 +118,8 @@ typedef struct _NoteCatalogEntry {
 - (BOOL)flushAllNoteChanges;
 - (void)flushEverything;
 
+- (void)mirrorAllOMToFinderTags;
+
 - (void)upgradeDatabaseIfNecessary;
 
 - (id)delegate;

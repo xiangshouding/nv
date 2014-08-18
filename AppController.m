@@ -1866,6 +1866,11 @@ terminateApp:
     return currentNote;
 }
 
+- (IBAction)mirrorAllOMToFinder:(id)sender
+{
+	[notationController mirrorAllOMToFinderTags];
+}
+
 - (void)restoreListStateUsingPreferences {
 	//to be invoked after loading a notationcontroller
 	
