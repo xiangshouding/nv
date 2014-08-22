@@ -229,6 +229,12 @@
 
 -(void)requestPreviewUpdate:(NSNotification *)notification
 {
+	AppController *app = [notification object];
+	NSString *rawString = [app noteContent];
+	NSPasteboard* pb = [NSPasteboard pasteboardWithName:@"mkStreamingPreview"];
+    [pb clearContents];
+    [pb setString:rawString forType:(NSString*)kUTTypeUTF8PlainText];
+
     if (![[self window] isVisible]) {
         self.isPreviewOutdated = YES;
         return;
@@ -238,7 +244,7 @@
       return;
     }
 
-    AppController *app = [notification object];
+
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(preview:) object:app];
 
     [self performSelector:@selector(preview:) withObject:app afterDelay:0.05];
@@ -337,6 +343,7 @@
 //	NSString *lastScrollPosition = [[preview windowScriptObject] evaluateWebScript:@"document.getElementsByTagName('body')[0].scrollTop"];
 	AppController *app = object;
 	NSString *rawString = [app noteContent];
+
 	SEL mode = [self markupProcessorSelector:[app currentPreviewMode]];
 	NSString *processedString = [NSString performSelector:mode withObject:rawString];
   NSString *previewString = processedString;
@@ -361,6 +368,7 @@
 	[outputString replaceOccurrencesOfString:@"{%style%}" withString:cssString options:0 range:NSMakeRange(0, [outputString length])];
 
 	[[preview mainFrame] loadHTMLString:outputString baseURL:nil];
+	[preview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"var body = document.getElementsByTagName('body')[0],oldscroll = %@;body.scrollTop = oldscroll;",lastScrollPosition]];
   [[self window] setTitle:noteTitle];
 
 	[sourceView replaceCharactersInRange:NSMakeRange(0, [[sourceView string] length]) withString:processedString];
