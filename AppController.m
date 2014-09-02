@@ -230,12 +230,23 @@ BOOL splitViewAwoke;
 	//set up temporary FastListDataSource containing false visible notes
     
 	//this will not make a difference
-	[window useOptimizedDrawing:YES];
 	
     
 	//[window makeKeyAndOrderFront:self];
 	//[self setEmptyViewState:YES];
-	
+#if DevelopingOnYosemiteOrLater
+    if (IsYosemiteOrLater) {
+        window.titlebarAppearsTransparent=YES;
+//        window.titleVisibility=NSWindowTitleHidden;
+    }else{
+        [window useOptimizedDrawing:YES];
+    }
+#else
+    [window useOptimizedDrawing:YES];
+#endif
+   
+   
+    
 	// Create elasticthreads' NSStatusItem.
 	if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"StatusBarItem"]) {
 		[self setUpStatusBarItem];
@@ -2417,7 +2428,7 @@ terminateApp:
 
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     if (aTableView==notesTableView) {
-        if ([aCell isHighlighted]) {           
+        if ([aCell isHighlighted]) {
             if (([window firstResponder]==notesTableView)||(isEditing&&([notesTableView editedRow]==rowIndex))) {//([notesTableView rowHeight]>30.0)||
                 [aCell setTextColor:[NSColor whiteColor]];
                 return;

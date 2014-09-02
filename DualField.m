@@ -471,7 +471,7 @@
 	//drawWithFrame: would make sense to override, but this works, too
 	[[self cell] drawWithFrame:NSMakeRect(0, 0, NSWidth(tBounds), NSHeight(tBounds)) inView:self];
 	
-	if (IsLeopardOrLater) {
+	if (IsLeopardOrLater&&!IsYosemiteOrLater) {
 		//ALERT: TEMPORARY WORK-AROUND FOR TIGER FOCUS RING BUILDUP: DO NOT DRAW FOCUS RING ON TIGER
 		if ([self currentEditor] && isActiveWin) {
 			//draw focus ring
