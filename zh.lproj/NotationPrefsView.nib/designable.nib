@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13F14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -50,7 +50,7 @@
                         <tabViewItem label="同步" identifier="sync" id="36">
                             <view key="view" id="37">
                                 <rect key="frame" x="10" y="33" width="373" height="336"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" id="42">
                                         <rect key="frame" x="114" y="257" width="208" height="22"/>
@@ -134,7 +134,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="push" title="30 分钟" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="30" inset="2" selectedItem="196" id="244">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="190">
                                                 <items>
                                                     <menuItem title="1 分钟" tag="1" id="191"/>
@@ -393,7 +393,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <popUpButtonCell key="cell" type="push" title="格式化的 HTML 文档 *" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="3" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="101" id="224">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="99">
                                                 <items>
                                                     <menuItem title="单数据库 (允许加密)" id="100"/>
@@ -410,15 +410,26 @@
                                             <action selector="changedFileStorageFormat:" target="-2" id="105"/>
                                         </connections>
                                     </popUpButton>
-                                    <button id="UML-ns-WXA" propertyAccessControl="none">
-                                        <rect key="frame" x="43" y="13" width="137" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Use Finder Tags" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="A1M-QP-Ohg">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <button verticalHuggingPriority="750" id="UML-ns-WXA" propertyAccessControl="none">
+                                        <rect key="frame" x="39" y="-1" width="137" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Use Finder Tags" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="A1M-QP-Ohg">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="UIt-II-BN0" name="value" keyPath="values.UseFinderTags" id="bIQ-C9-Sm0"/>
+                                            <action selector="switchToFinderTags:" target="-2" id="FVj-lS-iJ0"/>
+                                            <binding destination="UIt-II-BN0" name="enabled" keyPath="values.UseFinderTags" id="r6a-s3-0Un">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="1"/>
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="UIt-II-BN0" name="hidden" keyPath="values.UseFinderTags" previousBinding="r6a-s3-0Un" id="HBp-8x-E84">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -70,6 +70,7 @@
 //#define kDefaultMarkupPreviewMode @"markupPreviewMode"
 #define kDualFieldHeight 35.0
 
+#define k_FinderTaggingReset 1
 
 NSWindow *normalWindow;
 NSInteger ModFlagger;
@@ -94,6 +95,11 @@ BOOL splitViewAwoke;
 - (id)init {
     self = [super init];
     if (self) {
+        
+#if k_FinderTaggingReset
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UseFinderTags"];
+#endif
+        
         hasLaunched=NO;
         
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowDockIcon"]){
@@ -123,7 +129,7 @@ BOOL splitViewAwoke;
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         
-        NSString *folder = [[NSFileManager defaultManager] applicationSupportDirectory];
+        NSString *folder = [fileManager applicationSupportDirectory];
         
         if ([fileManager fileExistsAtPath: folder] == NO)
         {
@@ -537,6 +543,7 @@ void outletObjectAwoke(id sender) {
 	 @selector(removeTableColumn:sender:),  //ditto
 	 @selector(setTableColumnsShowPreview:sender:),  //when to tell notationcontroller to generate or disable note-body previews
 	 @selector(setConfirmNoteDeletion:sender:),  //whether "delete note" should have an ellipsis
+     @selector(setUseFinderTags:),  //whether nvalt should use findertags
 	 @selector(setAutoCompleteSearches:sender:),@selector(setUseETScrollbarsOnLion:sender:), nil];   //when to tell notationcontroller to build its title-prefix connections
 	
 	[self performSelector:@selector(runDelayedUIActionsAfterLaunch) withObject:nil afterDelay:0.0];
@@ -1113,7 +1120,9 @@ terminateApp:
 		if ([prefsController autoCompleteSearches])
 			[notationController updateTitlePrefixConnections];
 		
-	}
+	}else if ([selectorString isEqualToString:SEL_STR(setUseFinderTags:)]) {
+        [notationController mirrorAllOMToFinderTags];
+    }
 	
 }
 
@@ -1877,10 +1886,6 @@ terminateApp:
     return currentNote;
 }
 
-- (IBAction)mirrorAllOMToFinder:(id)sender
-{
-	[notationController mirrorAllOMToFinderTags];
-}
 
 - (void)restoreListStateUsingPreferences {
 	//to be invoked after loading a notationcontroller

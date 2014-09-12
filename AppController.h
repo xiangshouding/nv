@@ -148,8 +148,6 @@ void outletObjectAwoke(id sender);
 - (IBAction)importNotes:(id)sender;
 - (IBAction)switchViewLayout:(id)sender;
 
-- (IBAction)mirrorAllOMToFinder:(id)sender;
-
 - (IBAction)fieldAction:(id)sender;
 - (NoteObject*)createNoteIfNecessary;
 - (void)searchForString:(NSString*)string;

@@ -173,7 +173,8 @@
 
 - (void)mirrorAllOMToFinderTags
 {
-	[allNotes makeObjectsPerformSelector:@selector(mirrorTags)];
+    [allNotes makeObjectsPerformSelector:@selector(mirrorTags)];
+    [self performSelector:@selector(sortAndRedisplayNotes) withObject:nil afterDelay:5.0f];
 }
 
 - (void)upgradeDatabaseIfNecessary {

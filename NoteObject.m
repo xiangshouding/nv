@@ -1187,7 +1187,18 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		return;
 
 	@try {
-		[[NSFileManager defaultManager] mirrorOMToFinderTags:[[self noteFilePath] cStringUsingEncoding:NSUTF8StringEncoding]];
+        
+		NSArray *newTags=[[NSFileManager defaultManager] mergedTagsForFileAtPath:[[self noteFilePath] UTF8String]];
+        NSString *newLabelString=nil;
+        if ((newTags==nil)||newTags.count==0) {
+            newLabelString=@"";
+        }else{
+            newLabelString=[newTags componentsJoinedByString:@","];
+        }
+        if ([self _setLabelString:newLabelString]){
+            [self writeUsingCurrentFileFormat];
+            [self updateTablePreviewString];
+        }
 	}
 	@catch (NSException *exception) {
 		NSLog(@"%@",exception);

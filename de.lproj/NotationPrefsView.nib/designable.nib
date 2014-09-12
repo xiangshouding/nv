@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13F14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -134,7 +134,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="push" title="5 Minuten" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="5" inset="2" selectedItem="192" id="244">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="190">
                                                 <items>
                                                     <menuItem title="Jede Minute" tag="1" id="191"/>
@@ -373,7 +373,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <popUpButtonCell key="cell" type="push" title="Einzelne Datenbank (Erlaubt Verschlüsselung)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="100" id="224">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="99">
                                                 <items>
                                                     <menuItem title="Einzelne Datenbank (Erlaubt Verschlüsselung)" state="on" id="100"/>
@@ -401,15 +401,26 @@
                                             <action selector="makeDefaultExtension:" target="-2" id="265"/>
                                         </connections>
                                     </button>
-                                    <button id="zgP-YY-5T2" propertyAccessControl="none">
-                                        <rect key="frame" x="82" y="15" width="137" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Use Finder Tags" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="YK8-tw-0x7">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <button verticalHuggingPriority="750" id="zgP-YY-5T2" propertyAccessControl="none">
+                                        <rect key="frame" x="78" y="1" width="137" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Use Finder Tags" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="YK8-tw-0x7">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="u5l-KN-InJ" name="value" keyPath="values.UseFinderTags" id="k07-uc-StC"/>
+                                            <action selector="switchToFinderTags:" target="-2" id="18r-HQ-0MU"/>
+                                            <binding destination="u5l-KN-InJ" name="enabled" keyPath="values.UseFinderTags" id="5ef-Jr-zRY">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="1"/>
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="u5l-KN-InJ" name="hidden" keyPath="values.UseFinderTags" previousBinding="5ef-Jr-zRY" id="14E-fS-v2B">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </button>
                                 </subviews>

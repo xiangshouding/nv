@@ -23,13 +23,38 @@
 
 #define kMaxDataSize 4096
 
-- (BOOL)mirrorOMToFinderTags:(const char*)path
+- (NSArray *)mergedTagsForFileAtPath:(const char*)path
 {
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UseFinderTags"]) return NO;
-
-	id tags = [self getOpenMetaTagsAtFSPath:path];
-	
-	return [self setFinderTags:tags atFSPath:path];
+    NSArray *existingFinderTags=(NSArray *)[self getFinderTagsAtFSPath:path];
+    
+	NSArray *openMetaTags = (NSArray *)[self getOpenMetaTagsAtFSPath:path];
+    NSUInteger ct=0;
+    if (openMetaTags!=nil) {
+        ct=openMetaTags.count;
+    }
+    if (existingFinderTags!=nil) {
+        ct+=existingFinderTags.count;
+    }
+    if (ct>0) {
+        NSMutableSet *finalTagSet=[[NSMutableSet alloc]initWithCapacity:ct];
+        if (openMetaTags&&openMetaTags.count>0) {
+            [finalTagSet addObjectsFromArray:openMetaTags];
+        }
+        if ((existingFinderTags!=nil)&&(existingFinderTags.count>0)) {
+            [finalTagSet addObjectsFromArray:existingFinderTags];
+        }
+        NSArray *finalTags;
+        if (finalTagSet.count>0) {
+            finalTags=[NSArray arrayWithArray:[finalTagSet allObjects]];
+        }else{
+            finalTags=@[];
+        }
+        
+        [finalTagSet release];
+        return finalTags;
+    }else{
+        return @[];
+    }
 }
 
 - (id)getTagsAtFSPath:(const char*)path
@@ -46,13 +71,17 @@
 
 - (id)getFinderTagsAtFSPath:(const char*)path
 {
-	if (!path) return nil;
-
-	NSURL *url = [NSURL fileURLWithPath:[NSString stringWithCString:path encoding:NSUTF8StringEncoding]];
-	NSArray *existingTags;
-	NSError *error;
-	if (![url getResourceValue:&existingTags forKey:NSURLTagNamesKey error:&error])
-	{
+	if (!path){
+        NSLog(@"nopath");
+        return nil;
+    }
+    
+    NSString *newPath=[NSString stringWithCString:path encoding:NSUTF8StringEncoding];
+	NSURL *url = [NSURL fileURLWithPath:newPath];
+	NSArray *existingTags=nil;
+	NSError *error=nil;
+	if (![url getResourceValue:&existingTags forKey:NSURLTagNamesKey error:&error])	{
+        NSLog(@"trouble getting finder tags:%@",error);
 		return nil;
 	}
 	else
@@ -86,11 +115,11 @@
 	
 	// ok, we have some data 
 	NSPropertyListFormat formatFound;
-	NSString* errorString = nil;
-	id outObject = [NSPropertyListSerialization propertyListFromData:nsData mutabilityOption:kCFPropertyListImmutable format:&formatFound errorDescription:&errorString];
-	if (errorString) {
-		NSLog(@"%@: error deserializing labels: %@", NSStringFromSelector(_cmd), errorString);
-		[errorString autorelease];
+    NSError *err=nil;
+	id outObject = [NSPropertyListSerialization propertyListWithData:nsData options:NSPropertyListImmutable format:&formatFound error:&err];
+	if (err) {
+		NSLog(@"%@: error deserializing labels: %@", NSStringFromSelector(_cmd), err);
+//		[err autorelease];
 		return nil;
 	}
 	
@@ -112,10 +141,13 @@
 
 - (BOOL)setFinderTags:(id)plistObject atFSPath:(const char*)path
 {
-	if (!path) return NO;
-	NSURL *url = [NSURL fileURLWithPath:[NSString stringWithCString:path]];
+	if (!path){
+        NSLog(@"setting but no path");
+        return NO;
+    }
+	NSURL *url = [NSURL fileURLWithPath:[NSString stringWithCString:path encoding:NSUTF8StringEncoding]];
 	NSArray *tagArray = [NSArray arrayWithArray:plistObject];
-	NSError *error;
+	NSError *error=nil;
 	if (![url setResourceValue:tagArray forKey:NSURLTagNamesKey error:&error])
 	{
 		NSLog(@"%@", error);

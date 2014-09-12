@@ -115,7 +115,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 
 - (id)init {
 	if (self=[super init]) {
-	
+        
 		runCallbacksIMP = [self methodForSelector:@selector(notifyCallbacksForSelector:excludingSender:)];
 		selectorObservers = [[NSMutableDictionary alloc] init];
 		
@@ -124,7 +124,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 		tableColumns = nil;
 
 		[defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithBool:IsMavericksOrLater], UseFinderTagsKey,
+			[NSNumber numberWithBool:NO], UseFinderTagsKey,
 			[NSNumber numberWithBool:YES], AutoSuggestLinksKey,
 			[NSNumber numberWithBool:YES], AutoFormatsDoneTagKey, 
 			[NSNumber numberWithBool:YES], AutoIndentsNewLinesKey, 
@@ -539,16 +539,20 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 	
 }
 
-- (void)setUseFinderTags:(BOOL)value sender:(id)sender {
+- (void)setUseFinderTags:(id)sender {
 	if (!IsMavericksOrLater) {
 		[defaults setBool:NO forKey:UseFinderTagsKey];
 		return;
 	}
-	[defaults setBool:value forKey:UseFinderTagsKey];
+	[defaults setBool:YES forKey:UseFinderTagsKey];
+	SEND_CALLBACKS();
 }
 
 - (BOOL)useFinderTags
 {
+    if (!IsMavericksOrLater) {
+        return NO;
+    }
 	return [defaults boolForKey:UseFinderTagsKey];
 }
 

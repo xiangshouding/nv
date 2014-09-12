@@ -244,10 +244,6 @@
 	[prefsController setSoftTabs:[softTabsButton state] sender:self];
 }
 
-- (IBAction)changedUseFinderTags:(id)sender {
-	[prefsController setUseFinderTags:[useFinderTagsButton state] sender:self];
-}
-
 - (void)settingChangedForSelectorString:(NSString*)selectorString {
     if ([selectorString isEqualToString:SEL_STR(resolveNoteBodyFontFromNotationPrefsFromSender:)]) {
 		[self previewNoteBodyFont];

@@ -115,4 +115,7 @@
 - (void)_disableEncryption;
 - (void)disableEncryptionWithWarning:(BOOL)warning;
 
+#pragma mark nvALT Finder tagging
+- (IBAction)switchToFinderTags:(id)sender;
+
 @end
