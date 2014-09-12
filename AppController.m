@@ -70,7 +70,7 @@
 //#define kDefaultMarkupPreviewMode @"markupPreviewMode"
 #define kDualFieldHeight 35.0
 
-#define k_FinderTaggingReset 1
+#define k_FinderTaggingReset 0
 
 NSWindow *normalWindow;
 NSInteger ModFlagger;
