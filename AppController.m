@@ -1121,7 +1121,9 @@ terminateApp:
 			[notationController updateTitlePrefixConnections];
 		
 	}else if ([selectorString isEqualToString:SEL_STR(setUseFinderTags:)]) {
-        [notationController mirrorAllOMToFinderTags];
+        if(IsMavericksOrLater&&(([notationController currentNoteStorageFormat] != SingleDatabaseFormat))){
+            [notationController mirrorAllOMToFinderTags];
+        }
     }
 	
 }

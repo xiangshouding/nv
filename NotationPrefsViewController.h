@@ -74,6 +74,9 @@
 	SyncResponseFetcher *loginVerifier;
 	
 	NSString *disableEncryptionString, *enableEncryptionString;
+    
+#pragma mark nvALT Finder tagging
+    IBOutlet NSButton *useFinderTaggingButton;
 }
 
 - (NSView*)view;

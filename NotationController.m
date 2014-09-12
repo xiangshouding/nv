@@ -173,8 +173,20 @@
 
 - (void)mirrorAllOMToFinderTags
 {
-    [allNotes makeObjectsPerformSelector:@selector(mirrorTags)];
-    [self performSelector:@selector(sortAndRedisplayNotes) withObject:nil afterDelay:5.0f];
+    if(IsMavericksOrLater&&([self currentNoteStorageFormat]!=SingleDatabaseFormat)&&(allNotes!=nil)&&(allNotes.count>0)){
+        NSUInteger mirroredCount=0;
+        for (NoteObject *note in allNotes) {
+            if(![note mirrorTags]){
+                break;
+            }
+            mirroredCount++;
+        }
+        if (mirroredCount!=allNotes.count) {
+            NSLog(@"didn't mirror every note");
+        }else{
+            [self performSelector:@selector(sortAndRedisplayNotes) withObject:nil afterDelay:2.5f];
+        }
+    }
 }
 
 - (void)upgradeDatabaseIfNecessary {
@@ -618,7 +630,6 @@ bail:
 	}
 	
     if (currentStorageFormat == SingleDatabaseFormat) {
-		
 		[self stopFileNotifications];
 		
 		/*if (![self initializeJournaling]) {

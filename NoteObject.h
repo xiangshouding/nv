@@ -182,7 +182,7 @@ NSInteger compareFileSize(id *a, id *b);
 
 - (OSStatus)writeFileDatesAndUpdateTrackingInfo;
 
-- (void)mirrorTags;
+- (BOOL)mirrorTags;
 
 - (NSURL*)uniqueNoteLink;
 - (NSString*)noteFilePath;

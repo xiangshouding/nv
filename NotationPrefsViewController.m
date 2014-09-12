@@ -57,6 +57,7 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 
 - (id)init {
     if (self=[super init]) {
+        
 		didAwakeFromNib = NO;
 		notationPrefs = [[[GlobalPrefs defaultPrefs] notationPrefs] retain];
 		
@@ -160,6 +161,9 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 		
 		[allowedTypesTable reloadData];
 		[allowedExtensionsTable reloadData];
+        if (!IsMavericksOrLater||([notationPrefs notesStorageFormat]==SingleDatabaseFormat)) {
+            [useFinderTaggingButton setHidden:YES];
+        }
     }
 }
 

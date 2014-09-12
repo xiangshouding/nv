@@ -30,6 +30,7 @@
                 <outlet property="syncEncAlertView" destination="257" id="262"/>
                 <outlet property="syncPasswordField" destination="43" id="203"/>
                 <outlet property="syncingFrequency" destination="188" id="205"/>
+                <outlet property="useFinderTaggingButton" destination="zgP-YY-5T2" id="0jy-dO-0MR"/>
                 <outlet property="verifyStatusField" destination="184" id="186"/>
                 <outlet property="verifyStatusImageView" destination="179" id="181"/>
                 <outlet property="view" destination="5" id="71"/>
@@ -410,15 +411,15 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="switchToFinderTags:" target="-2" id="18r-HQ-0MU"/>
+                                            <binding destination="u5l-KN-InJ" name="hidden" keyPath="values.UseFinderTags" previousBinding="5ef-Jr-zRY" id="14E-fS-v2B">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="u5l-KN-InJ" name="enabled" keyPath="values.UseFinderTags" id="5ef-Jr-zRY">
                                                 <dictionary key="options">
                                                     <integer key="NSNullPlaceholder" value="1"/>
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                            <binding destination="u5l-KN-InJ" name="hidden" keyPath="values.UseFinderTags" previousBinding="5ef-Jr-zRY" id="14E-fS-v2B">
-                                                <dictionary key="options">
-                                                    <integer key="NSNullPlaceholder" value="0"/>
                                                 </dictionary>
                                             </binding>
                                         </connections>

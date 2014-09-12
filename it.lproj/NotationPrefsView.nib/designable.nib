@@ -30,6 +30,7 @@
                 <outlet property="syncEncAlertView" destination="257" id="262"/>
                 <outlet property="syncPasswordField" destination="43" id="203"/>
                 <outlet property="syncingFrequency" destination="188" id="205"/>
+                <outlet property="useFinderTaggingButton" destination="FX7-Uk-lml" id="1vW-dr-f7G"/>
                 <outlet property="verifyStatusField" destination="184" id="186"/>
                 <outlet property="verifyStatusImageView" destination="179" id="181"/>
                 <outlet property="view" destination="5" id="71"/>
@@ -410,15 +411,16 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="switchToFinderTags:" target="-2" id="YF4-5A-3XK"/>
+                                            <binding destination="JBY-Py-LAZ" name="hidden" keyPath="values.UseFinderTags" previousBinding="owM-pD-vKM" id="GLD-go-AMS">
+                                                <dictionary key="options">
+                                                    <integer key="NSMultipleValuesPlaceholder" value="1"/>
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="JBY-Py-LAZ" name="enabled" keyPath="values.UseFinderTags" id="owM-pD-vKM">
                                                 <dictionary key="options">
                                                     <integer key="NSNullPlaceholder" value="1"/>
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                            <binding destination="JBY-Py-LAZ" name="hidden" keyPath="values.UseFinderTags" previousBinding="owM-pD-vKM" id="n3R-et-sON">
-                                                <dictionary key="options">
-                                                    <integer key="NSNullPlaceholder" value="0"/>
                                                 </dictionary>
                                             </binding>
                                         </connections>

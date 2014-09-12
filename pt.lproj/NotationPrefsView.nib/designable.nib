@@ -30,6 +30,7 @@
                 <outlet property="syncEncAlertView" destination="257" id="262"/>
                 <outlet property="syncPasswordField" destination="43" id="203"/>
                 <outlet property="syncingFrequency" destination="188" id="205"/>
+                <outlet property="useFinderTaggingButton" destination="L2C-KD-BiX" id="jeA-VT-U14"/>
                 <outlet property="verifyStatusField" destination="184" id="186"/>
                 <outlet property="verifyStatusImageView" destination="179" id="181"/>
                 <outlet property="view" destination="5" id="71"/>

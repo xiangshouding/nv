@@ -1182,9 +1182,9 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
     return wroteAllOfNote;
 }
 
-- (void)mirrorTags {
+- (BOOL)mirrorTags {
 	if ([delegate currentNoteStorageFormat] == SingleDatabaseFormat)
-		return;
+		return NO;
 
 	@try {
         
@@ -1195,17 +1195,17 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
         }else{
             newLabelString=[newTags componentsJoinedByString:@","];
         }
-        if ([self _setLabelString:newLabelString]){
-            [self writeUsingCurrentFileFormat];
-            [self updateTablePreviewString];
+        [self setLabelString:newLabelString];
+        if([self writeUsingCurrentFileFormat]){
+            return YES;
         }
+        
 	}
 	@catch (NSException *exception) {
 		NSLog(@"%@",exception);
 	}
-	@finally {
-		return;
-	}
+    NSLog(@"didn't mirrror:>%@<",titleString);
+    return NO;
 
 }
 
