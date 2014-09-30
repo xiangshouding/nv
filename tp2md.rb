@@ -2,14 +2,20 @@
 # Usage: tp2md.rb filename.taskpaper > output.md
 require 'fileutils'
 
-input = STDIN.read
+if RUBY_VERSION.to_f > 1.9
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
+  input = STDIN.read.force_encoding('utf-8')
+else
+  input = STDIN.read
+end
 
 header = input.scan(/Format\: .*$/)
 output = ""
 prevlevel = 0
 begin
     input.split("\n").each {|line|
-      if line =~ /^(\t+)?(.*?):(\s(.*?))?$/
+      if line =~ /^(\t*)(.*?):(\s(.*?))?$/
         tabs = $1
         project = $2
         if tabs.nil?
@@ -19,7 +25,7 @@ begin
           output += "#{tabs.gsub(/^\t/,"")}* **#{project.gsub(/^\s*-\s*/,'')}**\n"
           prevlevel = tabs.length
         end
-      elsif line =~ /^(\t+)?\- (.*)$/
+      elsif line =~ /^(\t*)\- (.*)$/
         task = $2
         tabs = $1.nil? ? '' : $1
         task = "*<del>#{task}</del>*" if task =~ /@done/
@@ -33,7 +39,7 @@ begin
       else
         next if line =~ /^\s*$/
         tabs = ""
-        prevlevel-1.times {|i| tabs += "\t"}
+        (prevlevel).times {|i| tabs += "\t"}
         output += "\n#{tabs}*#{line.strip}*\n"
       end
     }
