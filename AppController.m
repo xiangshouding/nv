@@ -240,17 +240,9 @@ BOOL splitViewAwoke;
     
 	//[window makeKeyAndOrderFront:self];
 	//[self setEmptyViewState:YES];
-#if DevelopingOnYosemiteOrLater
-    if (IsYosemiteOrLater) {
-        window.titlebarAppearsTransparent=YES;
-//        window.titleVisibility=NSWindowTitleHidden;
-    }else{
+    if (!IsYosemiteOrLater) {
         [window useOptimizedDrawing:YES];
     }
-#else
-    [window useOptimizedDrawing:YES];
-#endif
-   
    
     
 	// Create elasticthreads' NSStatusItem.
