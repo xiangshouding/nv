@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -28,7 +28,6 @@
                 <outlet property="syncAccountField" destination="42" id="204"/>
                 <outlet property="syncPasswordField" destination="43" id="203"/>
                 <outlet property="syncingFrequency" destination="188" id="205"/>
-                <outlet property="useFinderTaggingButton" destination="zv5-KA-98Y" id="Iqg-qI-Av4"/>
                 <outlet property="verifyStatusField" destination="184" id="186"/>
                 <outlet property="verifyStatusImageView" destination="179" id="181"/>
                 <outlet property="view" destination="5" id="71"/>
@@ -400,28 +399,6 @@
                                             <action selector="changedFileStorageFormat:" target="-2" id="105"/>
                                         </connections>
                                     </popUpButton>
-                                    <button verticalHuggingPriority="750" id="zv5-KA-98Y" propertyAccessControl="none">
-                                        <rect key="frame" x="38" y="10" width="137" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="push" title="Use Finder Tags" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="I67-Jc-LMf">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="switchToFinderTags:" target="-2" id="srs-Oc-ykO"/>
-                                            <binding destination="w1k-3r-kML" name="enabled" keyPath="values.UseFinderTags" id="aCl-gJ-7Hg">
-                                                <dictionary key="options">
-                                                    <integer key="NSNullPlaceholder" value="1"/>
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                            <binding destination="w1k-3r-kML" name="hidden" keyPath="values.UseFinderTags" previousBinding="aCl-gJ-7Hg" id="eie-gc-DPU">
-                                                <dictionary key="options">
-                                                    <integer key="NSNullPlaceholder" value="0"/>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </view>
                         </tabViewItem>
@@ -573,7 +550,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="695" y="282" width="360" height="240"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="122">
                 <rect key="frame" x="0.0" y="0.0" width="360" height="240"/>
