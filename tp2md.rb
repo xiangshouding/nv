@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -wU
 # Usage: tp2md.rb filename.taskpaper > output.md
 require 'fileutils'
 
