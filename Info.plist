@@ -132,7 +132,7 @@
 	<key>CFBundleExecutable</key>
 	<string>nvALT</string>
 	<key>CFBundleGetInfoString</key>
-	<string>nvALT by ElasticThreads and Brett Terpstra, based on NV 2.0 β5 Copyright © 2010 Zachary Schneirov, All Rights Reserved.</string>
+	<string>nvALT by David Halter and Brett Terpstra, based on NV 2.0 β5 Copyright © 2010 Zachary Schneirov, All Rights Reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>Notality.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -162,7 +162,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>116</string>
+	<string>117</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSArchitecturePriority</key>

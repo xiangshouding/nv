@@ -196,8 +196,10 @@
 	//[self setDrawsBackground:NO];
 	DualFieldCell *myCell = [self cell];
 	//[myCell setWraps:YES];
-	
-	[self setDrawsBackground:NO];
+    [self setDrawsBackground:NO];
+    if(IsYosemiteOrLater){
+        [self setTextColor:[NSColor blackColor]];
+    }
 	[self setBordered:NO];
 	[self setBezeled:NO];
 	[self setFocusRingType:NSFocusRingTypeExterior];

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329r" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1060" defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.8"/>
+        <deployment version="1060" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -47,12 +47,6 @@
                             <menuItem title="Preferences…" keyEquivalent="," id="129">
                                 <connections>
                                     <action selector="showPreferencesWindow:" target="213" id="381"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Mirror OpenMeta to Finder Tags" id="0aR-XU-uiW">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="mirrorAllOMToFinder:" target="-1" id="GcM-qC-69h"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="991">
@@ -639,7 +633,7 @@ CA
                                     <action selector="showHelpDocument:" target="213" id="1289"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="ElasticThreads Web Site" tag="6" id="1285">
+                            <menuItem title="Elasticthreads Web Site" tag="6" id="1285">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showHelpDocument:" target="213" id="1290"/>

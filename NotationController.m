@@ -1551,8 +1551,12 @@ bail:
 }
 
 - (void)regeneratePreviewsForColumn:(NSTableColumn*)col visibleFilteredRows:(NSRange)rows forceUpdate:(BOOL)force {
-	
-	float width = [col width] - [NSScroller scrollerWidthForControlSize:NSRegularControlSize];
+    float width = [col width];
+    if(IsLionOrLater){
+        width-=[NSScroller scrollerWidthForControlSize:NSRegularControlSize scrollerStyle:[NSScroller preferredScrollerStyle]];
+    }else{
+    width-=[NSScroller scrollerWidthForControlSize:NSRegularControlSize];
+    }
 	
 	if (force || roundf(width) != roundf(titleColumnWidth)) {
 		titleColumnWidth = width;

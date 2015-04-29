@@ -310,14 +310,13 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		[self abortEditing];
 		
 		//restore columns according to the current preferences
-		
 		[self restoreColumns];
-		[self updateHeaderViewForColumns];
-		
+        
 		[self _configureAttributesForCurrentLayout];
-		
-		[self updateTitleDereferencorState];
-		
+        
+        [self updateTitleDereferencorState];
+        [self updateHeaderViewForColumns];
+
 		viewMenusValid = NO;
 	}else if (([selectorString isEqualToString:SEL_STR(setShowGrid:sender:)])||([selectorString isEqualToString:SEL_STR(setAlternatingRows:sender:)]) ) {
         if (([selectorString isEqualToString:SEL_STR(setAlternatingRows:sender:)])) {
