@@ -5,17 +5,12 @@
 
 + (NSString*)stringWithProcessedMarked:(NSString*)inputString
 {
-    NSString* mdScriptPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"node/marked/bin"] stringByAppendingPathComponent:@"marked"];
+    NSString* mdScriptPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"node"] stringByAppendingPathComponent:@"processor.js"];
     
     NSTask* task = [[NSTask alloc] init];
     NSMutableArray* args = [NSMutableArray array];
     
-    NSLog(@"Hello");
     [args addObject:mdScriptPath];
-    [args addObject: @"--gfm"];
-    [args addObject: @"--breaks"];
-    [args addObject: @"--tables"];
-    [args addObject: @"--smart-lists"];
     [task setArguments:args];
     
     NSPipe* stdinPipe = [NSPipe pipe];
