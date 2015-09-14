@@ -126,8 +126,8 @@ BOOL splitViewAwoke;
         
         if ([fileManager fileExistsAtPath: folder] == NO)
         {
-            [fileManager createDirectoryAtPath: folder attributes: nil];
-            
+//            [fileManager createDirectoryAtPath: folder attributes: nil];
+            [fileManager createDirectoryAtPath: folder withIntermediateDirectories: TRUE attributes: nil error: Nil];
         }
         
         NSNotificationCenter *nc=[NSNotificationCenter defaultCenter];
@@ -2634,6 +2634,7 @@ terminateApp:
 }
 
 #pragma mark fullscreen methods
+
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 

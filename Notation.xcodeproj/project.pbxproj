@@ -271,6 +271,7 @@
 		93B90E85138601C100BEC5FB /* NSAppleEventDescriptor-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E80138601C100BEC5FB /* NSAppleEventDescriptor-Extensions.m */; };
 		93B90E86138601C100BEC5FB /* ODBEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E82138601C100BEC5FB /* ODBEditor.m */; };
 		93B90E921386072E00BEC5FB /* TemporaryFileCachePreparer.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E911386072E00BEC5FB /* TemporaryFileCachePreparer.m */; };
+		93E89A621BA5EEFB00FC4C11 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93E89A611BA5EEFB00FC4C11 /* Application.xib */; };
 		B683A0D316F1CDA600564A1D /* LinkBack@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C716F1CDA600564A1D /* LinkBack@2x.tif */; };
 		B683A0D416F1CDA600564A1D /* LinkBackPressed@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C816F1CDA600564A1D /* LinkBackPressed@2x.tif */; };
 		B683A0D516F1CDA600564A1D /* SnapBack@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C916F1CDA600564A1D /* SnapBack@2x.tif */; };
@@ -779,7 +780,7 @@
 		5CFF810713A52EE2008A93A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5CFF810913A536F7008A93A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/Preferences.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* nvALT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nvALT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* nv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = nv.app; path = /Users/shouding/Dev/github.com/nv/build/Development/nv.app; sourceTree = "<absolute>"; };
 		93099627138BD61000368C45 /* tp2md.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = tp2md.rb; sourceTree = "<group>"; };
 		9335C40C148EC7AC009CE623 /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = multimarkdown; sourceTree = "<group>"; };
 		934C3FAE14FDA069000D14BA /* custom.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = custom.css; sourceTree = "<group>"; };
@@ -805,6 +806,7 @@
 		93B90E83138601C100BEC5FB /* ODBEditorSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODBEditorSuite.h; sourceTree = "<group>"; };
 		93B90E901386072E00BEC5FB /* TemporaryFileCachePreparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemporaryFileCachePreparer.h; sourceTree = "<group>"; };
 		93B90E911386072E00BEC5FB /* TemporaryFileCachePreparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemporaryFileCachePreparer.m; sourceTree = "<group>"; };
+		93E89A611BA5EEFB00FC4C11 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		B683A0C716F1CDA600564A1D /* LinkBack@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "LinkBack@2x.tif"; path = "Images/LinkBack@2x.tif"; sourceTree = "<group>"; };
 		B683A0C816F1CDA600564A1D /* LinkBackPressed@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "LinkBackPressed@2x.tif"; path = "Images/LinkBackPressed@2x.tif"; sourceTree = "<group>"; };
 		B683A0C916F1CDA600564A1D /* SnapBack@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "SnapBack@2x.tif"; path = "Images/SnapBack@2x.tif"; sourceTree = "<group>"; };
@@ -967,14 +969,6 @@
 				219D25491113FE34005E7DF5 /* SystemConfiguration.framework */,
 			);
 			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		19C28FACFE9D520D11CA2CBB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8D1107320486CEB800E47090 /* nvALT.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		211345A10B35D8340081B064 /* Crypto */ = {
@@ -1265,12 +1259,12 @@
 		29B97314FDCFA39411CA2CEA /* Notation */ = {
 			isa = PBXGroup;
 			children = (
+				93E89A611BA5EEFB00FC4C11 /* Application.xib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				21395BA90B7FDB5E007BCFAA /* Supporting Files */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
 				57F27F7A11973A7F00C63ACF /* Notation.sdef */,
 			);
 			name = Notation;
@@ -1451,7 +1445,7 @@
 			name = Notation;
 			productInstallPath = "$(HOME)/Applications";
 			productName = Notation;
-			productReference = 8D1107320486CEB800E47090 /* nvALT.app */;
+			productReference = 8D1107320486CEB800E47090 /* nv.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1529,6 +1523,7 @@
 				5C4B35421307220E00014119 /* TransparentScrollerSlotVerticalFill.tif in Resources */,
 				5CA11004131C2A7600DE1F91 /* __init__.py in Resources */,
 				5CA11005131C2A7600DE1F91 /* BeautifulSoup.py in Resources */,
+				93E89A621BA5EEFB00FC4C11 /* Application.xib in Resources */,
 				5CA11006131C2A7600DE1F91 /* BeautifulSoup.pyc in Resources */,
 				5CA11007131C2A7600DE1F91 /* html2text.py in Resources */,
 				5CA11008131C2A7600DE1F91 /* page_parser.py in Resources */,
@@ -2224,7 +2219,7 @@
 		212B842809780B5000F3597F /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer: Brett Terpstra (95JCYSRQDU)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2248,7 +2243,7 @@
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -2281,7 +2276,7 @@
 				IBC_STRIP_NIBS = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_GENERATE_MAP_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-pg",
@@ -2289,7 +2284,7 @@
 				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = nvALT;
-				PROVISIONING_PROFILE = "5C02B60F-CC46-4089-8BD9-FF6E1382772B";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -2303,7 +2298,7 @@
 		5C9CB58B134A7F0400073277 /* ForBuilding */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer: Brett Terpstra (95JCYSRQDU)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2325,7 +2320,7 @@
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_GLOBAL_CONSTRUCTORS = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -2354,10 +2349,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ICU/icu;
 				INFOPLIST_FILE = Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = nvALT;
-				PROVISIONING_PROFILE = "5C02B60F-CC46-4089-8BD9-FF6E1382772B";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = (
 					"-sectorder",
