@@ -259,6 +259,7 @@
 		934C3FB414FDA06A000D14BA /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 934C3FB014FDA069000D14BA /* template.html */; };
 		934C3FB514FDA06A000D14BA /* templateclean.html in Resources */ = {isa = PBXBuildFile; fileRef = 934C3FB114FDA069000D14BA /* templateclean.html */; };
 		934C3FB914FDA74F000D14BA /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 934C3FB814FDA74F000D14BA /* NSFileManager+DirectoryLocations.m */; };
+		93563D391BA65601009D9190 /* NSString_Marked.m in Sources */ = {isa = PBXBuildFile; fileRef = 93563D381BA65601009D9190 /* NSString_Marked.m */; };
 		937E6783138C250E0099DF47 /* AutoHyperlinks.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 937E6781138C24980099DF47 /* AutoHyperlinks.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		93A158BC133C304D00E1E7DA /* Markdownify.nvhelp in Resources */ = {isa = PBXBuildFile; fileRef = 93A158BB133C304D00E1E7DA /* Markdownify.nvhelp */; };
 		93A158BE133C497400E1E7DA /* Notality.icns in Resources */ = {isa = PBXBuildFile; fileRef = 93A158BD133C497400E1E7DA /* Notality.icns */; };
@@ -272,6 +273,7 @@
 		93B90E86138601C100BEC5FB /* ODBEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E82138601C100BEC5FB /* ODBEditor.m */; };
 		93B90E921386072E00BEC5FB /* TemporaryFileCachePreparer.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E911386072E00BEC5FB /* TemporaryFileCachePreparer.m */; };
 		93E89A621BA5EEFB00FC4C11 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93E89A611BA5EEFB00FC4C11 /* Application.xib */; };
+		93E89A681BA6531900FC4C11 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 93E89A671BA6531900FC4C11 /* node */; };
 		B683A0D316F1CDA600564A1D /* LinkBack@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C716F1CDA600564A1D /* LinkBack@2x.tif */; };
 		B683A0D416F1CDA600564A1D /* LinkBackPressed@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C816F1CDA600564A1D /* LinkBackPressed@2x.tif */; };
 		B683A0D516F1CDA600564A1D /* SnapBack@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C916F1CDA600564A1D /* SnapBack@2x.tif */; };
@@ -780,7 +782,6 @@
 		5CFF810713A52EE2008A93A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5CFF810913A536F7008A93A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/Preferences.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* nv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = nv.app; path = /Users/shouding/Dev/github.com/nv/build/Development/nv.app; sourceTree = "<absolute>"; };
 		93099627138BD61000368C45 /* tp2md.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = tp2md.rb; sourceTree = "<group>"; };
 		9335C40C148EC7AC009CE623 /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = multimarkdown; sourceTree = "<group>"; };
 		934C3FAE14FDA069000D14BA /* custom.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = custom.css; sourceTree = "<group>"; };
@@ -789,6 +790,9 @@
 		934C3FB114FDA069000D14BA /* templateclean.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = templateclean.html; sourceTree = "<group>"; };
 		934C3FB714FDA74F000D14BA /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		934C3FB814FDA74F000D14BA /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
+		93563D321BA654F6009D9190 /* nvALT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nvALT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93563D371BA65601009D9190 /* NSString_Marked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSString_Marked.h; path = Notation.xcodeproj/../NSString_Marked.h; sourceTree = "<group>"; };
+		93563D381BA65601009D9190 /* NSString_Marked.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSString_Marked.m; path = Notation.xcodeproj/../NSString_Marked.m; sourceTree = "<group>"; };
 		937E6781138C24980099DF47 /* AutoHyperlinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AutoHyperlinks.framework; sourceTree = "<group>"; };
 		93A158BB133C304D00E1E7DA /* Markdownify.nvhelp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Markdownify.nvhelp; sourceTree = "<group>"; };
 		93A158BD133C497400E1E7DA /* Notality.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Notality.icns; sourceTree = "<group>"; };
@@ -807,6 +811,7 @@
 		93B90E901386072E00BEC5FB /* TemporaryFileCachePreparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemporaryFileCachePreparer.h; sourceTree = "<group>"; };
 		93B90E911386072E00BEC5FB /* TemporaryFileCachePreparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemporaryFileCachePreparer.m; sourceTree = "<group>"; };
 		93E89A611BA5EEFB00FC4C11 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
+		93E89A671BA6531900FC4C11 /* node */ = {isa = PBXFileReference; lastKnownFileType = folder; path = node; sourceTree = "<group>"; };
 		B683A0C716F1CDA600564A1D /* LinkBack@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "LinkBack@2x.tif"; path = "Images/LinkBack@2x.tif"; sourceTree = "<group>"; };
 		B683A0C816F1CDA600564A1D /* LinkBackPressed@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "LinkBackPressed@2x.tif"; path = "Images/LinkBackPressed@2x.tif"; sourceTree = "<group>"; };
 		B683A0C916F1CDA600564A1D /* SnapBack@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "SnapBack@2x.tif"; path = "Images/SnapBack@2x.tif"; sourceTree = "<group>"; };
@@ -1266,6 +1271,7 @@
 				21395BA90B7FDB5E007BCFAA /* Supporting Files */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				57F27F7A11973A7F00C63ACF /* Notation.sdef */,
+				93563D331BA654F6009D9190 /* Products */,
 			);
 			name = Notation;
 			sourceTree = "<group>";
@@ -1347,6 +1353,9 @@
 		5C96F5A8131C379200A2E4AC /* Markup */ = {
 			isa = PBXGroup;
 			children = (
+				93563D371BA65601009D9190 /* NSString_Marked.h */,
+				93563D381BA65601009D9190 /* NSString_Marked.m */,
+				93E89A671BA6531900FC4C11 /* node */,
 				9335C40C148EC7AC009CE623 /* multimarkdown */,
 				93099627138BD61000368C45 /* tp2md.rb */,
 				5C96F617131C380C00A2E4AC /* Markdown_1.0.1 */,
@@ -1412,6 +1421,14 @@
 			path = readability;
 			sourceTree = "<group>";
 		};
+		93563D331BA654F6009D9190 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93563D321BA654F6009D9190 /* nvALT.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		93B90E7D138601C100BEC5FB /* ODBEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1445,7 +1462,7 @@
 			name = Notation;
 			productInstallPath = "$(HOME)/Applications";
 			productName = Notation;
-			productReference = 8D1107320486CEB800E47090 /* nv.app */;
+			productReference = 93563D321BA654F6009D9190 /* nvALT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1475,6 +1492,7 @@
 				zh,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Notation */;
+			productRefGroup = 93563D331BA654F6009D9190 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1498,6 +1516,7 @@
 				2110C0D90B65F09F00F5C52E /* SavedSearches.nib in Resources */,
 				21E6B09B0B6E6D0C001ABEDC /* URLGetter.nib in Resources */,
 				213621ED0B92413F008C0830 /* FindPanel.nib in Resources */,
+				93E89A681BA6531900FC4C11 /* node in Resources */,
 				216BA24310746E3900F62D93 /* ImporterAccessory.nib in Resources */,
 				21DF19B410D172F600543C35 /* DFCapLeftRoundedInactive.png in Resources */,
 				21BD2F3610DAF61700BA3DF6 /* SplitViewDimple.tif in Resources */,
@@ -1734,6 +1753,7 @@
 				21DB4BE612DE4E3D0057F52B /* NSString_CustomTruncation.m in Sources */,
 				21D6F7EF12E0C751005C2DA5 /* AppController_Importing.m in Sources */,
 				21D6FB4912E104D6005C2DA5 /* NSBezierPath_NV.m in Sources */,
+				93563D391BA65601009D9190 /* NSString_Marked.m in Sources */,
 				215309F412E4E92300AF2739 /* DiskUUIDEntry.m in Sources */,
 				21B64A2612E61FA700D87EFC /* LabelColumnCell.m in Sources */,
 				21B64C4E12E62A5700D87EFC /* UnifiedCell.m in Sources */,

@@ -10,6 +10,7 @@
 #import "AppController_Preview.h"
 #import "NSString_MultiMarkdown.h"
 #import "NSString_Markdown.h"
+#import "NSString_Marked.h"
 #import "NSString_Textile.h"
 #import "NoteObject.h"
 #import "ETTransparentButtonCell.h"
@@ -370,9 +371,9 @@
 {
     if (previewMode == MarkdownPreview) {
 		previewMode = MultiMarkdownPreview;
-        return @selector(stringWithProcessedMultiMarkdown:);
+        return @selector(stringWithProcessedMarked:);
     } else if (previewMode == MultiMarkdownPreview) {
-        return @selector(stringWithProcessedMultiMarkdown:);
+        return @selector(stringWithProcessedMarked:);
     } else if (previewMode == TextilePreview) {
         return @selector(stringWithProcessedTextile:);
     }
@@ -524,7 +525,8 @@
 		if ([app currentPreviewMode] == MarkdownPreview) {
 			processedString = [NSString stringWithProcessedMarkdown:rawString];
 		} else if ([app currentPreviewMode] == MultiMarkdownPreview) {
-			processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedMultiMarkdown:rawString] : [NSString xhtmlWithProcessedMultiMarkdown:rawString];
+			//processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedMultiMarkdown:rawString] : [NSString xhtmlWithProcessedMultiMarkdown:rawString];
+            processedString = [NSString stringWithProcessedMarked:rawString];
 		} else if ([app currentPreviewMode] == TextilePreview) {
 			processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedTextile:rawString] : [NSString xhtmlWithProcessedTextile:rawString];
 		}

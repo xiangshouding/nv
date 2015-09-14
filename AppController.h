@@ -49,6 +49,7 @@
 #define TextilePreview 13373
 #endif
 
+
 @interface AppController : NSObject 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 <NSToolbarDelegate, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>

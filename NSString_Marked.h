@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString_Marked : NSString
+@interface NSString(Marked)
+
++ (NSString*)stringWithProcessedMarked:(NSString*)inputString;
 
 @end
