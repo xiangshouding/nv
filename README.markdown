@@ -2,7 +2,11 @@
 
 A collaboration between Brett Terpstra (ttscoff) and David Halter (ElasticThreads) based on [DivineDominion's](github.com/divineDominion/nv) fork. nvALT adds a few features we'd been looking for (and let me get some coding practice).
 
-![Screenshot](http://img.skitch.com/20110520-k5y4i6i3p8ciftq2dbs7rx64e7.jpg)
+## Update
+
+- disable sync with simplenote, now
+- but can sync https://simperium.com
+- the preview support GFM (use marked)
 
 ## About nvALT
 
@@ -28,7 +32,6 @@ nvALT adds:
 ## Customization
 
 After the first time you run the Preview window, look in `~/Library/Application Support/Notational Velocity` and you'll find two files:` template.html` and `custom.css`. If you're handy with HTML and CSS, feel free to customize these in whatever way you like. You can add Javascript as well, but you'll need to load external scripts from a url or using a full file:// path. If worst comes to worst, you can just delete or rename your customizations and the default files will be put back in place automatically.
-
 
 ## Credits
 

@@ -31,7 +31,7 @@ function parse(markdownString) {
     marked.setOptions({
         highlight: function (code, lang, callback) {
             require('pygmentize-bundled')({lang: lang, format: 'html'}, code, function (err, result) {
-                callback(err, result.toString());
+                callback(err, result ? result.toString() : '');
             });
         }
     });

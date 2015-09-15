@@ -66,7 +66,8 @@ static void SNReachabilityCallback(SCNetworkReachabilityRef	target, SCNetworkCon
 	//path example: "/authorize"
 	
 	NSString *queryStr = params ? [NSString stringWithFormat:@"?%@", [params URLEncodedString]] : @"";
-	return [NSURL URLWithString:[NSString stringWithFormat:@"https://auth.simperium.com/1/chalk-bump-f49%@%@", path, queryStr]];
+
+	return [NSURL URLWithString:[NSString stringWithFormat:@"https://auth.simperium.com/1/billets-pat-979%@%@", path, queryStr]];
 }
 
 + (NSURL*)simperiumURLWithPath:(NSString*)path parameters:(NSDictionary*)params {
@@ -74,7 +75,7 @@ static void SNReachabilityCallback(SCNetworkReachabilityRef	target, SCNetworkCon
 	//path example: "/Note/index"
 
 	NSString *queryStr = params ? [NSString stringWithFormat:@"?%@", [params URLEncodedString]] : @"";
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.simperium.com/1/chalk-bump-f49%@%@", path, queryStr]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.simperium.com/1/billets-pat-979%@%@", path, queryStr]];
 }
 
 #if 0
@@ -296,7 +297,6 @@ static void SNReachabilityCallback(SCNetworkReachabilityRef	target, SCNetworkCon
 }
 
 - (SyncResponseFetcher*)loginFetcher {
-	
 	//init fetcher for login method; credentials POSTed in body
 	if (!loginFetcher) {
 		NSURL *loginURL = [SimplenoteSession authURLWithPath:@"/authorize/" parameters:nil];

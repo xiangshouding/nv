@@ -308,7 +308,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 	OSStatus err = SecKeychainFindGenericPassword(NULL, strlen(KEYCHAIN_SERVICENAME), KEYCHAIN_SERVICENAME,
 												  strlen(kcSyncAccountName), kcSyncAccountName, &passwordLength, &passwordData, &returnedItem);
 	if (err != noErr) {
-		NSLog(@"Error finding keychain password for service account %@: %d\n", serviceName, err);
+		NSLog(@"Error finding µ account %@: %d\n", serviceName, err);
 		return nil;
 	}
 	password = [[[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding] autorelease];

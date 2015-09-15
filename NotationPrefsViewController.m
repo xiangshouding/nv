@@ -452,7 +452,6 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 		NSDictionary *headers = [NSDictionary dictionaryWithObject:kSimperiumAPIKey forKey:@"X-Simperium-API-Key"];
 		NSDictionary *login = [NSDictionary dictionaryWithObjectsAndKeys:
 							   [syncAccountField stringValue], @"username", [syncPasswordField stringValue], @"password", nil];
-
 		loginVerifier = [[SyncResponseFetcher alloc] initWithURL:loginURL POSTData:[[login jsonStringValue] dataUsingEncoding:NSUTF8StringEncoding] headers:headers contentType:@"application/json" delegate:self];
 
 		[loginVerifier start];

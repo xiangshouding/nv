@@ -116,7 +116,7 @@
 	didCancel = NO;
 	isRunning = YES;
 	
-	//NSLog(@"starting request for URL '%@'", requestURL);
+//	NSLog(@"starting request for URL '%@'", requestURL);
 	if (!(urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self])) {
 		NSLog(@"%s: Couldn't create NSURLConnection with URLRequest %@", _cmd, request);
 		isRunning = NO;
